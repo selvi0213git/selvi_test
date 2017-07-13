@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 	<head>
-		<!-- ���� �ֳθ�ƽ�� �����ڵ��߰� 20170524 eley-->
+		<!-- 구글 애널리틱스 추적코드추가 20170524 eley-->
 		<script>
   		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -10,9 +10,12 @@
 
 		 ga('create', 'UA-99634637-1', 'auto');
 		 ga('send', 'pageview');
-
 		</script>
-
+		<!-- jQuery DatePicker 추가 20170609 eley-->
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+		
 		<!-- Document Settings -->
 		<meta charset="<?php bloginfo('charset'); ?>">
 		<?php
@@ -75,6 +78,59 @@
 				}
 			?>
 			<header class="<?php echo esc_attr($proton_header_class); ?>">
+			
+			<!--
+			[init]     
+			[20170602] | 로그인 클릭했을때 자바스크립트 함수 추가  | eley 
+			---------------------------------------------------
+			[after]
+			-->
+			<script>
+			//로그인버튼 보이기 안보이기
+			/*20170710*/
+			function login_view(){
+				if(document.getElementById("hiddenlogin").style.display==""){
+					document.getElementById("hiddenlogin").style.display="none";
+				}else{
+					document.getElementById("hiddenlogin").style.display="";  
+				}
+			}
+			
+			</script>
+
+			<!-- 
+			[init]     
+			[20170529] | 페이지 상단 로그인 체크                         | eley 
+			---------------------------------------------------------------
+			[after]
+			[20170602] | 기존 url타입 로그아웃 로그인 코드변경               | eley
+			[20170629] | 기존 로그아웃 마이페이지 url추가                  | eley
+			[20170710] | 기존 div open - >로그인클릭시 로그인 페이지로 이동변경 | eley
+			-->
+			<?php 
+				//현재 유저 정보를 가져옴
+				global $current_user;
+				wp_get_current_user();
+				$user_id = $current_user->ID;
+				//Notice문제때문에 선언
+				$redirect_to = ''; 
+
+				//로그인 하지않은 사람
+				if ($user_id == 0) {
+					//echo '<div align=right class=container style="color: #999999;"><a href="center_pop("http://selvitest.cafe24.com/selvi_login/","login","100","100")"> 로그인 </a> | <a href="http://selvitest.cafe24.com/login/"> Login </a></div>';
+					//20170710
+					echo '<div align=right class=container style="color: #999999;"><a href="javascript:login_view();"> LOGIN </a></div>';
+					echo '<div align=right class=header-holder><div id="hiddenlogin" class="social-icons" style="display:none; align=right">' . cosmosfarm_members_social_buttons(array('redirect_to'=>$redirect_to)) . '</div></div>';
+					//echo '<div align=right class=container style="color: #999999;"><a href="http://selvitest.cafe24.com/selvi_login/"> LOGIN </a></div>';
+				//로그인한 사람
+				} else {
+					//echo '<div align=right class=container style="color: #999999;"> 안녕하세요 ' . $current_user->user_login . ' 님 | <a href="http://selvitest.cafe24.com/logout/"> Logout </a></div>';
+					//echo '<div align=right class=container style="color: #999999;"> 안녕하세요 ' . $current_user->display_name . ' 님 | <a href="http://selvitest.cafe24.com/logout/"> LOGOUT </a></div>';
+					//20170629
+					echo '<div align=right class=container style="color: #999999;"> 안녕하세요 ' . $current_user->display_name . ' 님 </div>'; 
+					echo '<div align=right class=container style="color: #999999;"><a href="http://selvitest.cafe24.com/mypage/"> MYPAGE </a> | <a href="http://selvitest.cafe24.com/logout/"> LOGOUT </a></div>'; 
+				}
+			?>
 				<div class="container">
 					<div class="default-header <?php echo esc_attr($proton_header_layout_column); ?>">
 						<div class="logo">

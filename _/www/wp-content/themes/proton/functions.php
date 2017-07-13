@@ -1,8 +1,40 @@
 <?php
-//CRUD TEST 20170515 eley
+/**
+* [init]     
+* [20170515] | 파일 최초 수정                                         | eley 
+* ---------------------------------------------------------------------
+* [after]
+* [20170515] | CRUD TEST - mystatus.php                          | eley 
+* [20170607] | 이벤트등록 및 응모 crud php파일 include - eventinfo.php    | eley 
+* [20170623] | 이벤트배달정보입력 crud php파일 include - eventdelivery.php | eley 
+* [20170629] | 마이페이지정보입력 crud php파일 include - myinfo.php        | eley 
+* [20170703] | 이벤트응모리스트 crud php파일 include - evententerlist.php | eley 
+* [20170707] | mypage화면 통합을 위한 php파일 include - mypage.php       | eley 
+*/
+
+//20170515 eley
 include 'inc/mystatus.php';
 $GLOBALS['mystatus'] = new MY_Status();
 
+//20170607 eley
+include 'inc/eventinfo.php';
+$GLOBALS['eventinfo'] = new event_info();
+
+//20170623 eley
+include 'inc/eventdelivery.php';
+$GLOBALS['eventdelivery'] = new event_delivery();
+
+//20170629 eley
+include 'inc/myinfo.php';
+$GLOBALS['myinfo'] = new my_info();
+
+//20170703 eley
+include 'inc/evententerlist.php';
+$GLOBALS['evententerlist'] = new event_enterlist();
+
+//20170707 eley
+include 'inc/mypage.php';
+$GLOBALS['mypage'] = new mypage();
 
 // Define global theme variables
 $options = get_proton_options();

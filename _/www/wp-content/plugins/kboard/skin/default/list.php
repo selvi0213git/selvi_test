@@ -178,9 +178,73 @@
 	
 	<?php if($board->isWriter()):?>
 	<!-- 버튼 시작 -->
+
+	<!-- 
+	[init]     
+	[20170605] | 글쓰기버튼 클릭시 로그인/비로그인 체크로직  | eley 
+	---------------------------------------------------
+	[after]
+	-->
+	<?php 
+		//현재 유저 정보를 가져옴
+		global $current_user;
+		get_currentuserinfo();
+		$user_id = $current_user->ID;
+		
+		//로그인 유저가 아닐때 빈값줌
+		if(is_null($user_id)){
+			$user_id = "";
+		}	
+	?>
+	
+	<!-- 
+	[init]     
+	[20170605] | 비로그인 유저일때 로그인 페이지로 이동시키기 | eley 
+	---------------------------------------------------
+	[after]
+	[20170606] | 기존 로그인페이지이동->페이지상단으로 이동  | eley
+	-->
+	<script>
+		function kboard_logchk() {
+			var user = <?php echo $user_id?>;
+			if(!user){
+				//유저가 아닐때 로그인으로 이동
+				if(confirm("로그인이 필요한 서비스입니다.\n로그인하시겠습니까?")){
+					//location.href = "http://selvitest.cafe24.com/selvi_login/";
+					//홈페이지 상단으로 이동
+					x = document.body.scrollLeft; 
+					y = document.body.scrollTop; 
+					step = 2; 
+
+					while ((x != 0) || (y != 0)) { 
+						scroll (x, y); 
+						step += (step * step / 300); 
+						x -= step; 
+						y -= step; 
+						if (x < 0) x = 0; 
+						if (y < 0) y = 0; 
+					} 
+					scroll (0, 0); 
+					//상단 로그인 버튼 활성화
+					document.getElementById("hiddenlogin").style.display="";
+					}
+			//유저일때 글쓰기로 이동
+			} else {
+				location.href = "<?php echo $url->set('mod', 'editor')->toString()?>";
+			}
+		}
+	</script>
+	
+	<!--
 	<div class="kboard-control">
 		<a href="<?php echo $url->set('mod', 'editor')->toString()?>" class="kboard-default-button-small"><?php echo __('New', 'kboard')?></a>
 	</div>
+	-->
+	<!-- 위 코드 변경 -->
+	<div class="kboard-control">
+		<a href="javascript:kboard_logchk();" class="kboard-default-button-small"><?php echo __('New', 'kboard')?></a>
+	</div>
+	
 	<!-- 버튼 끝 -->
 	<?php endif?>
 	
