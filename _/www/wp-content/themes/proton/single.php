@@ -231,6 +231,7 @@
 								<?php //ndif; ?>
 							</ul>
 							-->
+							
 							<?php the_content(); ?>
 							<?php if($blog_single_next_previous) : ?>
 								<div class="single-navigation">

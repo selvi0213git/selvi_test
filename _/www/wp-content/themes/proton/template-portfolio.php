@@ -1,4 +1,16 @@
 ﻿<?php
+/**
+* [init]
+* [20170523] | 포트폴리오 템플릿 카테고리 숨기기                  | eley
+* -----------------------------------------------------------
+* [after]
+* [20170525] | 파일 최초 수정                             | eley 
+* [20170525] | 상세페이지내의 사이드바 안보이게 주석처리              | eley 
+* [20170613] | 이벤트정보 숏코드 등록(참조: inc/eventinfo.php) 
+*              포스트정보 보이지 않게 설정                      | eley 
+* [20170713] | 이벤트 안내바 추가                           | eley
+* [20170714] | 카테고리 숨기는 주석 삭제 	                      | eley
+*/
 	/* Template Name: Portfolio */
 	get_header();
 	$options = get_proton_options();
@@ -256,6 +268,7 @@
 							</div>
 						<?php endif; ?>
 					</div>
+					<!-- 안내바 추가 20170713-->
 					<!-- 안내바 로직 -->
 					<?php
 						//변수초기화 및 세팅
@@ -447,11 +460,10 @@
 				
 				<?php if($portfolio_style == '3' || $portfolio_style == '4') :  ?>
 					<div class="meta-tags-outside">
-						<h3><a title="<?php the_title(); ?>" href="<?php echo esc_attr($proton_post_url) ?>"><?php the_title(); ?></a></h3>
 						<span>
-							<!--포트폴리오 템플릿 카테고리 숨기기 20170523 eley-->
-							<!--<?php
-							/*
+							<!--포트폴리오 템플릿 카테고리 숨기기 20170523 eley - 주석삭제 20170714 -->
+							<?php
+							
 								$proton_portfolio_categories_link = $options['proton_portfolio_categories_link'];
 								if($proton_portfolio_categories_link){
 									foreach((get_the_category()) as $category) { echo $category->cat_name . ' '; }
@@ -459,9 +471,10 @@
 								else {
 									the_category(' ');
 								}
-							*/
-							?>-->
+							
+							?>
 						</span>
+						<h3><a title="<?php the_title(); ?>" href="<?php echo esc_attr($proton_post_url) ?>"><?php the_title(); ?></a></h3>
 					</div>
 				<?php endif; ?>
 			</div>

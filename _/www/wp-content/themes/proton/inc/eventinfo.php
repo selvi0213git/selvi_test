@@ -12,6 +12,7 @@
 * [20170707] | 경고창 confrim창으로 변경                 | eley
 * [20170710] | 기존 비로그인 top으로이동 -> 로그인팝업         | eley
 * [20170712] | 이벤트타입 DB추가로 인한 로직추가              | eley
+* [20170714] | facebook응모시 페이스북 자동로그인           | eley
 */
 class event_info {
 	function __construct(){
@@ -600,6 +601,7 @@ class event_info {
 				var user_id  = <?php echo $user_id?>;
 				
 					if(!user_id){
+						/*
 						//유저가 아닐때 로그인으로 이동
 						//if(confirm("로그인이 필요한 서비스입니다.\n로그인하시겠습니까?")){
 							//location.href = "http://selvitest.cafe24.com/selvi_login/";
@@ -624,6 +626,10 @@ class event_info {
 							//로그인팝업호출 20170710
 							//PUM.open(1241);
 						//}
+						*/
+						//페이스북 자동로그인 20170714
+						location.href = 'http://selvitest.cafe24.com/?action=cosmosfarm_members_social_login&channel=facebook&redirect_to=<?php echo get_permalink()?>';
+
 					//유저일때
 					} else {
 						var event_id = document.getElementById("event_id").value;//<?php echo $event_id?>;

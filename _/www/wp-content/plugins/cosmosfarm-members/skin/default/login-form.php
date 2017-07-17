@@ -1,4 +1,10 @@
 <?php if(!defined('ABSPATH')) exit;?>
+<!-- 
+[init] 
+[20170714] | 회원가입 비밀번호찾기 소셜 주석처리                      | eley    
+---------------------------------------------------------------
+[after]
+-->
 <div class="cosmosfarm-members-form signin-form <?php echo $option->skin?>">
 	<form method="post" action="<?php echo esc_url($login_action_url)?>">
 		<input type="hidden" name="redirect_to" value="<?php echo esc_url($redirect_to)?>">
@@ -28,9 +34,10 @@
 				<label><input name="rememberme" type="checkbox" id="rememberme" value="forever"><?php echo __('Keep me signed in', 'cosmosfarm-members')?></label>
 				<input type="submit" class="buttons" value="<?php echo __('Log In', 'cosmosfarm-members')?>">
 			</div>
+			<!-- 비밀번호 찾기 회원가입 소셜로그인 주석처리 20170714-->
 			
 			<?php echo cosmosfarm_members_social_buttons(array('redirect_to'=>$redirect_to))?>
-			
+			<!--
 			<?php if(get_cosmosfarm_members_profile_url()):?>
 			<div align="right" class="link-text pwdreset">
 				<a href="<?php echo add_query_arg(array('a'=>'pwdreset'), get_cosmosfarm_members_profile_url())?>"><?php echo __('Forgot Password', 'cosmosfarm-members')?></a>
@@ -42,6 +49,7 @@
 				<a href="<?php echo wp_registration_url()?>"><?php echo __('Register', 'cosmosfarm-members')?></a>
 			</div>
 			<?php endif?>
+			-->
 		</fieldset>
 	</form>
 </div>

@@ -1,4 +1,17 @@
 ﻿<!DOCTYPE html>
+<!-- 
+[init] 
+[20170524] | 구글 애널리틱스 추적코드추가                      | eley    
+---------------------------------------------------------------
+[after]
+[20170529] | 페이지 상단 로그인 체크                        | eley 
+[20170609] | jQuery DatePicker 추가                  | eley
+[20170602] | 로그인 클릭했을때 자바스크립트 함수 추가              | eley 
+[20170602] | 기존 url타입 로그아웃 로그인 코드변경               | eley
+[20170629] | 기존 로그아웃 마이페이지 url추가                  | eley
+[20170710] | 기존 div open - >로그인클릭시 로그인 페이지로 이동변경 | eley
+[20170717] | 부모창url이동 script함수 추가                 | eley
+-->
 <html <?php language_attributes(); ?>>
 	<head>
 		<!-- 구글 애널리틱스 추적코드추가 20170524 eley-->
@@ -15,6 +28,13 @@
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 		<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+		
+		<!-- 부모창 url이동시 저장(iframe에서 사용) 20170717 eley-->
+		<script>
+		function change_parent_url (url){ 
+			document.location = url; 
+        }	
+		</script>
 		
 		<!-- Document Settings -->
 		<meta charset="<?php bloginfo('charset'); ?>">
@@ -79,15 +99,10 @@
 			?>
 			<header class="<?php echo esc_attr($proton_header_class); ?>">
 			
-			<!--
-			[init]     
-			[20170602] | 로그인 클릭했을때 자바스크립트 함수 추가  | eley 
-			---------------------------------------------------
-			[after]
-			-->
 			<script>
 			//로그인버튼 보이기 안보이기
 			/*20170710*/
+			/*
 			function login_view(){
 				if(document.getElementById("hiddenlogin").style.display==""){
 					document.getElementById("hiddenlogin").style.display="none";
@@ -95,18 +110,9 @@
 					document.getElementById("hiddenlogin").style.display="";  
 				}
 			}
-			
+			*/
 			</script>
-
-			<!-- 
-			[init]     
-			[20170529] | 페이지 상단 로그인 체크                         | eley 
-			---------------------------------------------------------------
-			[after]
-			[20170602] | 기존 url타입 로그아웃 로그인 코드변경               | eley
-			[20170629] | 기존 로그아웃 마이페이지 url추가                  | eley
-			[20170710] | 기존 div open - >로그인클릭시 로그인 페이지로 이동변경 | eley
-			-->
+			
 			<?php 
 				//현재 유저 정보를 가져옴
 				global $current_user;
@@ -119,9 +125,9 @@
 				if ($user_id == 0) {
 					//echo '<div align=right class=container style="color: #999999;"><a href="center_pop("http://selvitest.cafe24.com/selvi_login/","login","100","100")"> 로그인 </a> | <a href="http://selvitest.cafe24.com/login/"> Login </a></div>';
 					//20170710
-					echo '<div align=right class=container style="color: #999999;"><a href="javascript:login_view();"> LOGIN </a></div>';
-					echo '<div align=right class=header-holder><div id="hiddenlogin" class="social-icons" style="display:none; align=right">' . cosmosfarm_members_social_buttons(array('redirect_to'=>$redirect_to)) . '</div></div>';
-					//echo '<div align=right class=container style="color: #999999;"><a href="http://selvitest.cafe24.com/selvi_login/"> LOGIN </a></div>';
+					//echo '<div align=right class=container style="color: #999999;"><a href="javascript:login_view();"> LOGIN </a></div>';
+					//echo '<div align=right class=header-holder><div id="hiddenlogin" class="social-icons" style="display:none; align=right">' . cosmosfarm_members_social_buttons(array('redirect_to'=>$redirect_to)) . '</div></div>';
+					echo '<div align=right class=container style="color: #999999;"><a href="http://selvitest.cafe24.com/login/"> LOGIN </a></div>';
 				//로그인한 사람
 				} else {
 					//echo '<div align=right class=container style="color: #999999;"> 안녕하세요 ' . $current_user->user_login . ' 님 | <a href="http://selvitest.cafe24.com/logout/"> Logout </a></div>';

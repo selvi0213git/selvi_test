@@ -69,8 +69,9 @@ class event_delivery {
 		//업데이트체크-request deliveryDB
 		$update = false;
 		
-		//응모내역에 있는지 확인
-		if($enter_row = $this->get_enter_row($user_id, $event_id, $enter_id)) {
+		//응모내역에 있는지 확인 + 받는내용 없으면 안보여줌
+		if($event_id != '' || $enter_id != ''){
+			$enter_row = $this->get_enter_row($user_id, $event_id, $enter_id);
 			//응모내역 있음
 			if(isset($enter_row)){		
 				//변수설정
@@ -87,18 +88,18 @@ class event_delivery {
 			}else{
 				$url_ck = false;
 			}
+			
 		}
-		
 		//url잘못된 접속일때 홈화면으로 이동
-	    //if($url_ck == false){
-			//wp_redirect(home_url());
-		//	return;
-		//}
-		
-		if($url_ck == false){ 
-			echo "<div align='center';><h3 style='color:#ffcb2f'>[ERROR_URL] 표시할 정보가 없습니다.</h3></div>";
+	    if($url_ck == false){
+			wp_redirect(home_url());
 			return;
 		}
+		//url잘못된 접속일때 메세지 보여줌
+		//if($url_ck == false){ 
+		//	echo "<div align='center';><h3 style='color:#ffcb2f'>당첨 내역이 없습니다.</h3></div>";
+		//	return;
+		//}
 		
 		//등록된 기본정보가 있을때 변수설정
 		if($user_row = $this->get_user_row($user_id)){
