@@ -1,4 +1,13 @@
 <?php
+/**
+* [init]     
+* [20170525] | 파일 최초 수정                             | eley 
+* -----------------------------------------------------------
+* [after]
+* [20170525] | 상세페이지내의 사이드바 안보이게 주석처리             | eley 
+* [20170613] | 이벤트정보 숏코드 등록(참조: inc/eventinfo.php) 
+*              포스트정보 보이지 않게 설정                     | eley 
+*/
 	get_header();
 	$options = get_proton_options();
 	if(have_posts()) : while(have_posts()) : the_post();
@@ -202,21 +211,27 @@
 						</div>
 						<div class="blog-info">
 							<h2><?php the_title(); ?></h2>
+							<!-- 20170613 eley-->
+							<?php echo do_shortcode('[eventinfo]');?>
+
+							<!-- 20170613 eley
 							<ul class="post-info">
-								<?php if($blog_single_author_info) : ?>
-									<li><?php echo esc_attr__("by", "proton") ?> <?php the_author_posts_link(); ?></li>
+								<?php //if($blog_single_author_info) : ?>
+									<li><?php //echo esc_attr__("by", "proton") ?> <?php //the_author_posts_link(); ?></li>
 								<?php
-									endif;
-									if($blog_single_categories) :
+									//endif;
+									//if($blog_single_categories) :
 								?>
-								<li><?php echo esc_attr__("in", "proton") ?> <?php the_category(' '); ?></li>
+								<li><?php //echo esc_attr__("in", "proton") ?> <?php //the_category(' '); ?></li>
 								<?php
-									endif;
-									if($blog_single_post_date) :
+									//endif;
+									//if($blog_single_post_date) :
 								?>
-								<li><?php echo esc_attr__("posted", "proton") ?> <span><?php the_time('F j, Y'); ?></span></li>
-								<?php endif; ?>
+								<li><?php //echo esc_attr__("posted", "proton") ?> <span><?php //the_time('F j, Y'); ?></span></li>
+								<?php //ndif; ?>
 							</ul>
+							-->
+							
 							<?php the_content(); ?>
 							<?php if($blog_single_next_previous) : ?>
 								<div class="single-navigation">
@@ -235,7 +250,8 @@
 					<?php comments_template(); ?>
 				</div>
 				<div class="<?php echo esc_attr($blog_single_layout_sidebar); ?>">
-					<?php get_sidebar(); ?>
+					<!--20170525 eley-->
+					<!--<?php //get_sidebar(); ?>-->
 				</div>
 			</div>
 		</div>
