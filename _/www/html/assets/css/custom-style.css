@@ -1,0 +1,446 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/*html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6,*/
+p,
+dl, dt, dd, ol, ul, li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-style: normal;
+  font: inherit;
+  vertical-align: baseline;
+  -webkit-text-size-adjust: none;
+  /* remove iphone style */ }
+
+/* HTML5 display-role reset for older browsers */
+/*article, aside, details, figcaption, figure, 
+footer, header, hgroup, main, menu, nav, section {
+  display: block;
+}*/
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/*table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}*/
+/**
+ * JYO Reset
+ */
+button:focus, input:focus
+a:focus, div:focus {
+  outline: none;
+  /* overrides chrome default focus outline */ }
+
+* {
+  -webkit-text-size-adjust: none; }
+
+input {
+  padding: 0; }
+
+/* a, a:active, a:visited {
+  color: inherit;
+  text-decoration: none;
+} */
+a {
+  text-decoration: none; }
+
+/**
+ * Utils =================================
+ */
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+/**
+ * Layout Helper
+ */
+.clearfix:before, .event-flag-group:before, .event-item ul:before, .event-item .info dl:before,
+.clearfix:after,
+.event-flag-group:after,
+.event-item ul:after,
+.event-item .info dl:after {
+  content: "";
+  display: table; }
+
+.clearfix:after, .event-flag-group:after, .event-item ul:after, .event-item .info dl:after {
+  clear: both; }
+
+.clearfix, .event-flag-group, .event-item ul, .event-item .info dl {
+  zoom: 1;
+  /* ie 6/7 */ }
+
+/* 12 Column Grid */
+.col-1 {
+  width: 8.33333333333333%; }
+
+.col-2 {
+  width: 16.66666666666667%; }
+
+.col-4 {
+  width: 33.33333333333333%; }
+
+.col-5 {
+  width: 41.66666666666667%; }
+
+.col-6 {
+  width: 50%; }
+
+.col-7 {
+  width: 58.33333333333333%; }
+
+.col-8 {
+  width: 66.66666666666667%; }
+
+.col-9 {
+  width: 75%; }
+
+.col-10 {
+  width: 83.33333333333333%; }
+
+.col-11 {
+  width: 91.66666666666667%; }
+
+.flex-img, .wrapper header .logo a img {
+  display: block;
+  max-width: 100%; }
+
+.dim-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 600px;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 99999; }
+
+/**
+ * Selvi Typography =================================
+ */
+@font-face {
+  font-family: 'Noto Sans Korean Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/NotoSansKR-Bold-Hestia.eot");
+  src: url("../fonts/NotoSansKR-Bold-Hestia.eot?#iefix") format("embedded-opentype"), url("../fonts/NotoSansKR-Bold-Hestia.woff") format("woff"), url("../fonts/NotoSansKR-Bold-Hestia.otf") format("opentype"); }
+@font-face {
+  font-family: 'Noto Sans Korean Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/NotoSansKR-Medium-Hestia.eot");
+  src: url("../fonts/NotoSansKR-Medium-Hestia.eot?#iefix") format("embedded-opentype"), url("../fonts/NotoSansKR-Medium-Hestia.woff") format("woff"), url("../fonts/NotoSansKR-Medium-Hestia.otf") format("opentype"); }
+@font-face {
+  font-family: 'Noto Sans Korean Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/NotoSansKR-Regular-Hestia.eot");
+  src: url("../fonts/NotoSansKR-Regular-Hestia.eot?#iefix") format("embedded-opentype"), url("../fonts/NotoSansKR-Regular-Hestia.woff") format("woff"), url("../fonts/NotoSansKR-Regular-Hestia.otf") format("opentype"); }
+@font-face {
+  font-family: 'KHNPHan Dotum Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/khnphdotfr.eot");
+  src: url("../fonts/khnphdotfr.eot?#iefix") format("embedded-opentype"), url("../fonts/khnphdotfr.woff") format("woff"), url("../fonts/KHNPHDotfR.otf") format("opentype"); }
+body {
+  color: #555555;
+  font-family: 'Noto Sans Korean Medium', sans-serif;
+  font-weight: 500; }
+
+a {
+  color: #555555;
+  text-decoration: none; }
+  a:focus, a:hover {
+    color: #555555;
+    text-decoration: none; }
+
+/**
+ * Selvi Header
+ */
+.wrapper header {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background-color: #3e3952; }
+  .wrapper header .logo {
+    width: 40%; }
+    .wrapper header .logo a {
+      display: block; }
+  .wrapper header .header-holder {
+    width: 60%; }
+  .wrapper header .btn-login {
+    display: inline-block;
+    margin-bottom: 0.93333em;
+    width: 4.6em;
+    background-color: #726c89;
+    border-radius: 2px;
+    color: #fff;
+    font-family: 'Noto Sans Korean Medium', sans-serif;
+    font-weight: 500;
+    font-size: 0.9375em;
+    line-height: 1.86667em;
+    text-align: center; }
+    .wrapper header .btn-login:hover {
+      text-decoration: none; }
+  .wrapper header nav ul {
+    margin-right: 0; }
+    .wrapper header nav ul li {
+      margin: 0;
+      padding: 6px 0; }
+      .wrapper header nav ul li:first-child a {
+        padding-left: 0; }
+      .wrapper header nav ul li:last-child a {
+        padding-right: 0; }
+      .wrapper header nav ul li + li a {
+        position: relative; }
+        .wrapper header nav ul li + li a:before {
+          content: " ";
+          position: absolute;
+          top: 50%;
+          left: 0;
+          display: block;
+          margin-top: -0.5em;
+          width: 2px;
+          height: 16px;
+          background-color: #9f9ca9; }
+        @media screen and (max-width: 991px) {
+          .wrapper header nav ul li + li a::before {
+            display: none; } }
+      .wrapper header nav ul li a {
+        display: block;
+        padding-left: 13px;
+        padding-right: 11px;
+        color: #fff;
+        font-family: 'KHNPHan Dotum Regular', sans-serif;
+        font-size: 18px; }
+        .wrapper header nav ul li a:hover {
+          color: #fff; }
+  .wrapper header .hamburger .hamburger-inner {
+    background-color: #fff; }
+    .wrapper header .hamburger .hamburger-inner::before, .wrapper header .hamburger .hamburger-inner::after {
+      background-color: #fff !important; }
+  @media screen and (max-width: 441px) {
+    .wrapper header {
+      padding-top: 14px;
+      padding-bottom: 14px; } }
+
+/**
+ * Selvi Site Footer
+ */
+footer .footer-widgets {
+  padding-top: 1.5em;
+  padding-bottom: 3.4375em; }
+
+.site-footer {
+  border-top: 1px solid #dbdbdb; }
+  .site-footer .site-info {
+    font-family: 'Noto Sans Korean Regular', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: keep-all; }
+    .site-footer .site-info p + p {
+      margin-top: 3px; }
+  .site-footer .footer-menu {
+    margin-top: 18px;
+    font-family: 'Noto Sans Korean Regular', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5; }
+    .site-footer .footer-menu a {
+      white-space: pre; }
+      .site-footer .footer-menu a:hover, .site-footer .footer-menu a:focus {
+        border-bottom: 1px solid rgba(85, 85, 85, 0.7); }
+    .site-footer .footer-menu .divider {
+      margin: 0 -3px; }
+
+.wrapper {
+  padding-bottom: 4.0625em;
+  min-width: 320px; }
+
+/**
+ * Customize Nivo Slider
+ */
+.theme-default .nivo-controlNav {
+  padding-top: 1.25em !important;
+  padding-bottom: 0 !important; }
+  .theme-default .nivo-controlNav .nivo-control {
+    margin-left: 0.375em;
+    margin-right: 0.375em;
+    width: 0.5625em;
+    height: 0.5625em;
+    background: #d9dbde; }
+    .theme-default .nivo-controlNav .nivo-control.active {
+      background: #48494a; }
+
+/**
+ * Event Flag Group
+ */
+.event-flag-group {
+  font-size: 16px; }
+  .event-flag-group .event-flag {
+    float: left; }
+  .event-flag-group.flex .event-flag {
+    padding: 0; }
+
+.event-flag {
+  padding: 0 0.78571em;
+  height: 2.85714em;
+  background-color: #e0e4ea;
+  color: #fff;
+  font-family: 'Noto Sans Korean Bold', sans-serif;
+  font-weight: 700;
+  font-size: 0.875em;
+  line-height: 2.85714em;
+  text-align: center; }
+  .event-flag.shipping {
+    background-color: #4cd2e7; }
+  .event-flag.ing {
+    background-color: #ff7521; }
+  .event-flag.shop {
+    background-color: #a074ed; }
+
+/**
+ * Selvi Event Item
+ */
+.event-item {
+  padding-bottom: 1.875em; }
+  .event-item .inner {
+    display: block;
+    background-color: #ffffff;
+    box-shadow: 0 2px 1px 0 rgba(191, 190, 193, 0.43); }
+  .event-item ul li {
+    float: left; }
+  .event-item .info {
+    font-family: 'Noto Sans Korean Bold', sans-serif;
+    font-weight: 700; }
+    .event-item .info .row1 {
+      background-color: #e0e4ea; }
+    .event-item .info .row2 {
+      background-color: #fff; }
+      .event-item .info .row2 li {
+        padding-top: 9px;
+        padding-bottom: 10px;
+        font-size: 14px; }
+      .event-item .info .row2 li + li {
+        position: relative; }
+        .event-item .info .row2 li + li:before {
+          content: " ";
+          position: absolute;
+          top: 50%;
+          left: 0;
+          display: block;
+          margin-top: -0.5em;
+          width: 1px;
+          height: 1em;
+          background-color: #bfbec1; }
+    .event-item .info .flags {
+      width: 34.98099%; }
+    .event-item .info .time {
+      float: right;
+      padding-right: 12px;
+      width: 65.01901%;
+      box-sizing: border-box;
+      font-size: 0.9375em;
+      line-height: 40px;
+      text-align: right; }
+    .event-item .info .closed {
+      background-color: #bcc1c7;
+      color: #fff;
+      font-size: 15px;
+      line-height: 40px;
+      width: 100%;
+      text-align: center; }
+    .event-item .info dl {
+      padding-left: 9px;
+      padding-right: 12px;
+      line-height: 1.4; }
+      .event-item .info dl dt {
+        float: left;
+        box-sizing: border-box;
+        text-align: left; }
+      .event-item .info dl dd {
+        float: right;
+        box-sizing: border-box;
+        text-align: right; }
+      .event-item .info dl .value {
+        color: #ff7521; }
+    .event-item .info .row2.break-line li {
+      float: none;
+      width: 100%; }
+      .event-item .info .row2.break-line li:first-child {
+        padding-bottom: 0; }
+      .event-item .info .row2.break-line li:last-child {
+        padding-top: 0; }
+        .event-item .info .row2.break-line li:last-child::before {
+          display: none; }
+    .event-item .info .row2.break-line dl dt {
+      float: left; }
+    .event-item .info .row2.break-line dl dd {
+      float: right; }
+  .event-item .title {
+    padding-top: 1.25em;
+    padding-bottom: 1.5625em;
+    padding-left: 1.125em;
+    padding-right: 1.125em; }
+    .event-item .title .cat {
+      margin-bottom: 10px;
+      color: #999999;
+      font-size: 13px; }
+    .event-item .title .tit {
+      display: block;
+      min-height: 46px;
+      font-family: 'Noto Sans Korean Bold', sans-serif;
+      font-weight: 700;
+      font-size: 19px;
+      line-height: 126.31579%; }
+
+@media screen and (max-width: 1200px) and (min-width: 992px) {
+  .event-item .info {
+    font-size: 14px; }
+    .event-item .info .row2 li {
+      padding-top: 6px;
+      padding-bottom: 6px; }
+    .event-item .info .row2 li + li:before {
+      margin-top: -15px;
+      height: 30px; }
+    .event-item .info .time {
+      padding-right: 8px; }
+    .event-item .info dl dt {
+      float: none; }
+    .event-item .info dl dd {
+      float: none;
+      text-align: left; } }
+/**
+ * Selvi Home
+ */
+body.home {
+  background-color: #f2f4f7; }
+  body.home .portfolio {
+    padding-top: 1.75em; }
+  body.home .ad_slider {
+    padding-bottom: 1.125em; }
+  @media screen and (max-width: 441px) {
+    body.home .portfolio {
+      padding-top: 20px; } }
+
+/*# sourceMappingURL=custom-style.css.map */

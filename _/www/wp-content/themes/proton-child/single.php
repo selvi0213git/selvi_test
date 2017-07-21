@@ -7,6 +7,7 @@
 * [20170525] | 상세페이지내의 사이드바 안보이게 주석처리             | eley 
 * [20170613] | 이벤트정보 숏코드 등록(참조: inc/eventinfo.php) 
 *              포스트정보 보이지 않게 설정                     | eley 
+* [20170718] | 관련글 추가                               | eley 
 */
 	get_header();
 	$options = get_proton_options();
@@ -245,6 +246,8 @@
 									</div>
 								</div>
 							<?php endif; ?>
+							<!-- 관련글 추가 20170718 eley -->
+							<?php echo do_shortcode('[relationlist]');?>
 						</div>
 					</div>
 					<?php comments_template(); ?>

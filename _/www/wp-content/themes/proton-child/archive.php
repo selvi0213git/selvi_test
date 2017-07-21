@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-9 col-xs-12">
 				<!--영어이름변경 20170524 eley-->
-				<!--<h1><?php echo esc_attr__("All posts in this category.","proton") ?></h1>-->
+				<!--<h1><?php //echo esc_attr__("All posts in this category.","proton") ?></h1>-->
 				<h3><span style="color: #999999;">Category Results By SELVI :)</span><h3>
 			</div>
 		</div>

@@ -1,0 +1,98 @@
+/**
+ * Selvi Header
+ */
+$header-bg-color: #3e3952;
+
+.wrapper {
+	header {
+		padding-top: 25px;
+		padding-bottom: 25px;
+		background-color: $header-bg-color;
+
+		.logo {
+			width: 40%;
+		}
+
+		.btn-login {
+			display: inline-block;
+			margin-bottom: em(14, 15);
+			width: em(69, 15);
+			background-color: $color-light-purple;
+			border-radius: 2px;
+			color: #fff;
+			@include font-medium;
+			font-size: em(15);
+			line-height: em(28, 15);
+			text-align: center;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		nav {
+			ul {
+				margin-right: 0;
+
+				li {
+					margin: 0;
+					padding: 6px 0;
+
+					&:first-child a {
+						padding-left: 0;
+					}
+					&:last-child a {
+						padding-right: 0;
+					}
+
+					& + li {
+						a {
+							@include add-divider(#9f9ca9, 2px, 16px);
+							@include responsive(medium) {
+								&::before {
+									display: none;
+								}
+							}
+						}//a
+					}//li+li
+
+					a {
+						display: block;
+						padding-left: 13px;
+						padding-right: 11px;
+						color: #fff;
+						@include font-han-regular;
+						font-size: 18px;
+
+						&:hover {
+							color: #fff;
+						}
+					}//a
+				}//li
+			}//ul
+		}//nav
+
+		.hamburger {
+			// top: 11px;
+
+			.hamburger-inner {
+				background-color: #fff;
+				&::before,
+				&::after {
+					background-color: #fff !important;
+				}
+			}
+		}
+
+		@include responsive(medium) {
+			.header-holder {
+				// padding-bottom: 11px;
+			}
+		}//medium
+
+		@include responsive(small) {
+			padding-top: 14px;
+			padding-bottom: 14px;
+		}
+	}//header
+}//wrapper

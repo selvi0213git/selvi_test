@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<!-- 
+<!DOCTYPE html>
+<!--
 [init] 
 [20170524] | 구글 애널리틱스 추적코드추가                      | eley    
 ---------------------------------------------------------------
@@ -11,6 +11,7 @@
 [20170629] | 기존 로그아웃 마이페이지 url추가                  | eley
 [20170710] | 기존 div open - >로그인클릭시 로그인 페이지로 이동변경 | eley
 [20170717] | 부모창url이동 script함수 추가                 | eley
+[20170718] | 관리자 일때 마이페이지 -> 설정페이지               | eley
 -->
 <html <?php language_attributes(); ?>>
 	<head>
@@ -134,7 +135,12 @@
 					//echo '<div align=right class=container style="color: #999999;"> 안녕하세요 ' . $current_user->display_name . ' 님 | <a href="http://selvitest.cafe24.com/logout/"> LOGOUT </a></div>';
 					//20170629
 					echo '<div align=right class=container style="color: #999999;"> 안녕하세요 ' . $current_user->display_name . ' 님 </div>'; 
-					echo '<div align=right class=container style="color: #999999;"><a href="http://selvitest.cafe24.com/mypage/"> MYPAGE </a> | <a href="http://selvitest.cafe24.com/logout/"> LOGOUT </a></div>'; 
+					//관리자 일때 설정페이지로 보여줌 20170718 eley
+					if ($current_user->user_status == 1){
+						echo '<div align=right class=container style="color: #999999;"><a href="http://selvitest.cafe24.com/admin_home/"> 설정/관리 </a> | <a href="http://selvitest.cafe24.com/logout/"> LOGOUT </a></div>'; 
+					}else{
+						echo '<div align=right class=container style="color: #999999;"><a href="http://selvitest.cafe24.com/mypage/"> MYPAGE </a> | <a href="http://selvitest.cafe24.com/logout/"> LOGOUT </a></div>'; 
+					}
 				}
 			?>
 				<div class="container">

@@ -10,6 +10,9 @@
 * [20170629] | 마이페이지정보입력 crud php파일 include - myinfo.php        | eley 
 * [20170703] | 이벤트응모리스트 crud php파일 include - evententerlist.php | eley 
 * [20170707] | mypage화면 통합을 위한 php파일 include - mypage.php       | eley 
+* [20170718] | 관련글 php파일 include - relation.php                  | eley 
+* [20170718] | 관리자 php파일 include - admin_control.php             | eley 
+* [20170720] | custom css파일 추가 - /custom.css                     | eley 
 */
 
 //20170515 eley
@@ -36,6 +39,20 @@ $GLOBALS['evententerlist'] = new event_enterlist();
 include 'inc/mypage.php';
 $GLOBALS['mypage'] = new mypage();
 add_action( 'wp_enqueue_scripts', 'enqueue_child_theme_styles', PHP_INT_MAX);
+
+//20170718 eley
+include 'inc/relations.php';
+$GLOBALS['relationlist'] = new relation_list();
+
+//20170718 eley
+include 'inc_admin/admin_control.php';
+$GLOBALS['admincontrol'] = new admin_control();
+
+//20170720 eley
+function custom_style_sheet() {
+	wp_enqueue_style( 'custom-styling', get_stylesheet_directory_uri() . '/custom.css' );
+}
+add_action('wp_enqueue_scripts', 'custom_style_sheet');
 
 //style
 function enqueue_child_theme_styles() {
