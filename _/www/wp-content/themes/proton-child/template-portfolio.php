@@ -323,11 +323,13 @@
 							//+유저 응모정보 가져옴
 							$user_id = $current_user->ID;
 
-							$result_text = '♡';
+							//+응모가능
+							$result_enter = true;
 							$user_result_row = get_user_result($post_id, $user_id);
 							
+							//+응모 불가능
 							if($user_result_row){
-								$result_text = '♥';
+								$result_enter = false;
 							}
 						?>
 						
@@ -431,6 +433,22 @@
 									}
 								}
 								
+								//+ 응모확인 딱지 추가
+								//<!-- yeonok: add status flag 20170824 -->
+								if( $result_enter == true ){ //응모가능
+									echo 
+										'<span class="text-flag">
+											<i class="icon facebook xs"></i>
+											<span class="tit">응모가능</span>
+										</span>';
+								}else if( $result_enter == false ){ //응모불가능
+									echo 
+										'<span class="text-flag disabled">
+											<i class="icon facebook xs"></i>
+											<span class="tit">응모완료</span>
+										</span>';
+								}
+								
 								//스크립트 변수설정을 위한 변수++
 								$i++;
 							?>
@@ -449,7 +467,7 @@
 										}
 									?>
 								</p>
-								<p class="tit"><?php the_title()?> <?php echo $result_text?></p>
+								<p class="tit"><?php the_title()?></p>
 							</div><!-- /.title -->
 							
 						</a><!-- /.inner -->

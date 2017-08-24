@@ -184,15 +184,15 @@ msgstr ""
 msgid "Check it out"
 msgstr ""
 
-#: includes/admin/metabox-support.php:40, includes/admin/shortcode-ui/templates/fields.php:14
+#: includes/admin/metabox-support.php:42, includes/admin/shortcode-ui/templates/fields.php:14
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/metabox-support.php:46
+#: includes/admin/metabox-support.php:48
 msgid "Free Support Forums"
 msgstr ""
 
-#: includes/admin/metabox-support.php:52
+#: includes/admin/metabox-support.php:54
 msgid "Extension Support"
 msgstr ""
 
@@ -394,11 +394,11 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: includes/admin/popups/dashboard-columns.php:193
+#: includes/admin/popups/dashboard-columns.php:191
 msgid "Show all categories"
 msgstr ""
 
-#: includes/admin/popups/dashboard-columns.php:206
+#: includes/admin/popups/dashboard-columns.php:204
 msgid "Show all tags"
 msgstr ""
 
@@ -1674,11 +1674,11 @@ msgctxt "%s represent opening and closing link html"
 msgid "Use this if there is a conflict with your theme or another plugin in the nav menu editor. %sSee Details%s"
 msgstr ""
 
-#: includes/modules/menus.php:155
+#: includes/modules/menus.php:159
 msgid "Trigger a Popup"
 msgstr ""
 
-#: includes/modules/menus.php:166
+#: includes/modules/menus.php:170
 msgid "Choose a popup to trigger when this item is clicked."
 msgstr ""
 

@@ -179,7 +179,7 @@
 		
 	</style>
 
-	<link rel="stylesheet" type="text/css" href="assets/css/custom-style.css"/>
+	<link rel="stylesheet" type="text/css" href="assets/css/custom-style-core.css"/>
 	<link rel="stylesheet" type="text/css" href="assets/css/kboard-selvi-style.css">
 
 	</head>
@@ -293,7 +293,7 @@
 																</dd>
 															</dl>
 														</div><!-- /.form-list -->
-														<div class="field-agree">
+														<!-- <div class="field-agree">
 															<p class="check-form">
 																<input type="checkbox" id="check-agree-privacy">
 																<label for="check-agree-privacy">개인정보동의</label>
@@ -302,7 +302,25 @@
 																<input type="checkbox" id="check-agree-policy">
 																<label for="check-agree-policy">서비스이용약관동의</label>
 															</p>
-														</div>
+														</div> -->
+														<div class="field-agree">
+															<p class="check-form">
+																<input type="checkbox" id="agree_individual" checked="checked">
+																<label for="agree_individual">
+																	<a onclick="popupFunc('http://selvitest.cafe24.com/agree_individual.html',400,600,'개인정보동의')">
+																		개인정보동의
+																	</a>
+																</label>
+															</p>
+															<p class="check-form">
+																<input type="checkbox" id="agree_service" checked="checked">
+																<label for="agree_service">
+																	<a onclick="popupFunc('http://selvitest.cafe24.com/agree_service.html',400,600,'서비스이용약관동의')">
+																		서비스이용약관동의
+																	</a>
+																</label>
+															</p>
+														</div><!-- /.field-agree -->
 														<div class="field-control">
 															<input type="button" value="등록" class="btn-univ">
 														</div>

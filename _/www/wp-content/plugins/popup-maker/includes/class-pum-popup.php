@@ -167,6 +167,7 @@ if ( ! class_exists( 'PUM_Popup' ) ) {
 					'pum',
 					'pum-overlay',
 					'pum-theme-' . $this->get_theme_id(),
+					'pum-theme-' . get_post_field( 'post_name', $this->get_theme_id() ),
 					'popmake-overlay', // Backward Compatibility
 				),
 				'container' => array(
@@ -238,7 +239,7 @@ if ( ! class_exists( 'PUM_Popup' ) ) {
 		}
 
 		/**
-		 * @return mixed|void
+		 * @return array
 		 */
 		function get_cookies() {
 			if ( ! $this->cookies ) {
@@ -253,7 +254,7 @@ if ( ! class_exists( 'PUM_Popup' ) ) {
 		}
 
 		/**
-		 * @return mixed|void
+		 * @return array
 		 */
 		function get_triggers() {
 			if ( ! $this->triggers ) {
@@ -393,7 +394,7 @@ if ( ! class_exists( 'PUM_Popup' ) ) {
 
 		/**
 		 * Returns the close button text.
-		 * @return mixed|void
+		 * @return string
 		 */
 		public function close_text() {
 			$text = '&#215;';
@@ -446,7 +447,7 @@ if ( ! class_exists( 'PUM_Popup' ) ) {
 		/**
 		 * @param array $filters
 		 *
-		 * @return mixed|void
+		 * @return array
 		 */
 		public function get_conditions( $filters = array() ) {
 
@@ -540,7 +541,9 @@ if ( ! class_exists( 'PUM_Popup' ) ) {
 		}
 
 		/**
-		 * @return mixed|void
+		 * @param array $filters
+		 *
+		 * @return bool
 		 */
 		public function has_conditions( $filters = array() ) {
 			return boolval( count( $this->get_conditions( $filters ) ) );

@@ -1,6 +1,14 @@
 /**
  * Basic style
  */
+.icon {
+  display: inline-block;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  vertical-align: middle;
+}
+
 /**
  * Utils =================================
  */
@@ -392,6 +400,33 @@ button.btn-login-facebook, input[type="button"].btn-login-facebook, input[type="
   z-index: 1;
 }
 
+/* Icon */
+.icon.facebook.xs {
+  width: 0.5625em;
+  height: 0.9375em;
+  background-image: url(../images/icon-facebook-xs@2x.png);
+}
+
+/* Flag */
+.text-flag {
+  display: inline-block;
+  padding: 0 0.5em;
+  background-color: #4c73c4;
+  border-radius: 0.1875em;
+}
+.text-flag.disabled {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.text-flag .tit {
+  color: #fff;
+  font-size: 0.75em;
+  line-height: 2.5em;
+}
+.text-flag .icon {
+  margin-left: 0.125em;
+  margin-right: 0.0625em;
+}
+
 /**
  * Form Frame
  */
@@ -401,6 +436,9 @@ button.btn-login-facebook, input[type="button"].btn-login-facebook, input[type="
 .form-frame .check-form label {
   color: #4e9ae1;
   font-size: 1.125em;
+}
+.form-frame .check-form label a {
+  color: #4e9ae1;
 }
 .form-frame .field-agree {
   margin-top: 2.9375em;

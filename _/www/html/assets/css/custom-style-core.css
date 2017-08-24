@@ -482,6 +482,15 @@ body.home .wrapper, body.bg-gray .wrapper {
   font-size: 19px;
   line-height: 126.31579%;
 }
+.event-item .entry-img {
+  position: relative;
+}
+.event-item .text-flag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+}
 
 @media screen and (max-width: 1200px) and (min-width: 992px) {
   .event-item .info {

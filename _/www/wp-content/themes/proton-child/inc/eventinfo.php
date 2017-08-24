@@ -588,11 +588,12 @@ class event_info {
 				var agent = navigator.userAgent.toLowerCase();
 
 				//Samsung Browser
+				/* 20170824 지원됨
 				if (agent.indexOf("samsungbrowser") != -1) {
 					alert("지원되지 않는 브라우저 입니다. \n크롬에서 접속해주세요.");
 					return;
 				}
-
+				*/
 				
 				var user_id  = <?php echo $user_id?>;
 				  
