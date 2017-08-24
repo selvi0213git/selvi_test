@@ -1012,6 +1012,9 @@ body.page-event-detail header + .container {
 .write-address .form-frame .form-list {
   clear: both;
 }
+.write-address .form-frame .textarea {
+  height: 6.25em;
+}
 
 /**
  * My Page
@@ -1045,6 +1048,9 @@ body.page-event-detail header + .container {
   margin-top: 2.8125em;
   padding-bottom: 2.8125em;
   border-bottom: 2px solid #a1a1a1;
+}
+.my-basic-info .textarea {
+  height: 6.25em;
 }
 .my-basic-info .field-control {
   margin-top: 28px;

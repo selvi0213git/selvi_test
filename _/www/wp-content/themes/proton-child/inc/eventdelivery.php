@@ -200,7 +200,8 @@ class event_delivery {
 									<dl>
 										<dt>기타사항</dt>
 										<dd>
-											<textarea onchange="resize(this)" id="delivery_etc" name="delivery_etc" class="input-text col-12" value="<?php echo $delivery_etc;?>"><?php echo $delivery_etc;?></textarea>
+											<!-- +yeonok: adjust textarea 20170824 -->
+											<textarea id="delivery_etc" name="delivery_etc" class="textarea col-12" value="<?php echo $delivery_etc;?>"><?php echo $delivery_etc;?></textarea>
 										</dd>
 									</dl>
 								</div><!-- /.form-list -->
@@ -274,10 +275,12 @@ class event_delivery {
 			});
 			
 			//textarea 크기자동조절
+			/*
 			function resize(obj){
 				obj.style.height = "1px";
 				obj.style.height = (20+obj.scrollHeight)+"px";
 			}
+			*/
 			
 			//전화번호 체크함수
 			function tel_check(str){

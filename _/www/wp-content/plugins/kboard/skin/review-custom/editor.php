@@ -94,7 +94,7 @@
 								<?php if($board->use_editor):?>
 									<?php wp_editor($content->content, 'kboard_content'); ?>
 								<?php else:?>
-									<textarea onchange="resize(this)" class="textarea col-12" name="kboard_content" id="kboard_content"><?php echo $content->content?></textarea>
+									<textarea class="textarea col-12" name="kboard_content" id="kboard_content"><?php echo $content->content?></textarea>
 								<?php endif?>
 							</dd>
 						</dl>

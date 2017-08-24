@@ -74,7 +74,7 @@
 									<?php endforeach?>
 									
 									<!-- content -->
-									<?php echo strip_tags($content->content)?>
+									<?php echo nl2br($content->content)?>
 									
 									<!-- ADMIN SET -->
 									<?php if($board->isAdmin()):?>

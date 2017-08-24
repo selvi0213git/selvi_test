@@ -109,7 +109,9 @@ var ui = {
  */
  
 //textarea 크기자동조절
+/*
 function resize(obj){
 	obj.style.height = "1px";
 	obj.style.height = (20+obj.scrollHeight)+"px";
 }
+*/
