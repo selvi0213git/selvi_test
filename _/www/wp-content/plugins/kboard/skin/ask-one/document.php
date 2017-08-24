@@ -4,7 +4,7 @@
 			<meta itemprop="name" content="<?php echo kboard_htmlclear(strip_tags($content->title))?>">
 			
 			<div class="kboard-detail">
-				<div class="detail-attr detail-title">
+				<div class="detail-attr detail-title2">
 					<div class="detail-name"><?php echo __('Title', 'kboard')?></div>
 					<div class="detail-value"><?php echo $content->title?></div>
 				</div>

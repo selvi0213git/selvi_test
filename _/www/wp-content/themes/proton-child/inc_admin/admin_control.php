@@ -33,9 +33,15 @@ class admin_control {
 				var admin_menu = admin_menu;
 
 				if(admin_menu == 'info'){
-					location.href= "/admin_info";
+					window.location.href= "/admin_info";
 				}else if(admin_menu == 'event'){
-					location.href= "/admin_event";
+					window.location.href= "http://selvitest.cafe24.com/";
+				}else if(admin_menu == 'ad'){
+					window.location.href= "http://selvitest.cafe24.com/wp-admin/admin.php?page=metaslider";
+				}else if(admin_menu == 'list'){
+					window.location.href= "/admin_list";
+				}else if(admin_menu == 'statistics'){
+					window.location.href= "/admin_statistics";
 				}else{
 					alert("준비중입니다!");
 				}
@@ -50,19 +56,22 @@ class admin_control {
 		.tg .tg-9dar{font-weight:bold;font-size:20px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#33b5cb;color:#ffffff;text-align:center}
 		.tg .tg-vfmm{font-weight:bold;font-size:20px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#f26917;color:#ffffff;text-align:center}
 		.tg .tg-xu6e{font-weight:bold;font-size:20px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#883bfd;color:#ffffff;text-align:center;}
+		.tg .tg-ad{font-weight:bold;font-size:20px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#00d856;color:#ffffff;text-align:center;}
 		
 		.tg .tg-vdcs:hover { background-color: lightgray; }
 		.tg .tg-9dar:hover { background-color: lightgray; }
 		.tg .tg-vfmm:hover { background-color: lightgray; }
 		.tg .tg-xu6e:hover { background-color: lightgray; }
+		.tg .tg-ad:hover { background-color: lightgray; }
 		</style>
 		<center>
-		<table class="tg" style="undefined;table-layout: fixed; height : 20%; width: 100%;">
+		<table class="tg" style="undefined;table-layout: fixed; height : 45%; width: 100%;">
 		  <tr>
 			<th class="tg-9dar" onclick="javascript:click_sub('info')"  >관리자<br>정보관리</th>
+			<th class="tg-ad" onclick="javascript:click_sub('ad')" >메인배너<br>관리</th>
 			<th class="tg-vdcs" onclick="javascript:click_sub('event')" >이벤트<br>관리</th>
-			<th class="tg-vfmm" onclick="javascript:click_sub()" >준비중<br>입니다</th>
-			<th class="tg-xu6e" onclick="javascript:click_sub()" >준비중<br>입니다</th>
+			<th class="tg-vfmm" onclick="javascript:click_sub('list')" >리스트<br>관리</th>
+			<th class="tg-xu6e" onclick="javascript:click_sub('statistics')" >통계<br>관리</th>
 		  </tr>
 		</table>
 		</center>

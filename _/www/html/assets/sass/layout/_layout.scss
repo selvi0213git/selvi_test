@@ -2,10 +2,21 @@
 @import "footer";
 
 body {
-	background-color: #f2f4f7;
+	background-color: $color-white-gray;
 }
 
 .wrapper {
+	background-color: #fff;
 	padding-bottom: em(65);
 	min-width: 320px;
+
+	body.home &,
+	body.bg-gray & {
+		background-color: $color-white-gray;
+	}
+}
+
+.inner-container {
+	margin: 0 auto;
+	max-width: 848px;
 }

@@ -1,15 +1,9 @@
 <?php
 /**
-* [init]
-* [20170523] | 포트폴리오 템플릿 카테고리 숨기기                  | eley
-* -----------------------------------------------------------
-* [after]
-* [20170525] | 파일 최초 수정                             | eley 
-* [20170525] | 상세페이지내의 사이드바 안보이게 주석처리              | eley 
-* [20170613] | 이벤트정보 숏코드 등록(참조: inc/eventinfo.php) 
-*              포스트정보 보이지 않게 설정                      | eley 
-* [20170713] | 이벤트 안내바 추가                           | eley
-* [20170714] | 카테고리 숨기는 주석 삭제 	                      | eley
+[init] 
+[20170724] | RENEWAL                               | eley    
+---------------------------------------------------------------
+[after]
 */
 	/* Template Name: Portfolio */
 	get_header();
@@ -29,7 +23,9 @@
 	<?php
 		endif;
 		if(have_posts()) : while(have_posts()) : the_post();
-	?>	
+	?>
+
+	<!-- portfolio start -->
 	<div class="portfolio">
 		<?php
 			//스크립트 변수설정을 위한 전역변수설정
@@ -44,6 +40,7 @@
 
 			if($proton_enable_filters && $proton_filters) :
 		?>
+		
 		<div class="filters">
 			<span><?php echo esc_attr__("Filters:", "proton"); ?></span>
 			<ul id="filters">
@@ -53,6 +50,7 @@
 				<?php endforeach; ?>
 			</ul>
 		</div>
+		
 		<?php
 			endif;
 
@@ -176,6 +174,8 @@
 				$proton_portfolio_masonry_row .= " border-hover";
 			}
 		?>
+		
+		<!-- portfolio road start-->
 		<div class="<?php echo esc_attr($proton_portfolio_masonry_row); ?>">
 			<?php
 				// Portfolio Category
@@ -225,7 +225,13 @@
 			?>
 			<div class="<?php echo esc_attr($proton_portfolio_layout_col); ?>">
 				<div class="item-holder">
-					<div class="item">
+				
+		<!-- portfolio renwal start -------------------------------------------------------------------------->		
+					
+					<!-- yeonok: 이벤트 아이템 재정의 '.event-item' -->
+					<div class="event-item">
+					
+						<!-- post logic -->
 						<?php
 							$proton_post_type = get_field("proton_post_type");
 							$proton_post_url = get_permalink();
@@ -240,128 +246,92 @@
 								}
 							}
 						?>
-						<a class="full-overlay-link" href="<?php echo esc_attr($proton_post_url); ?>"></a>
-						<?php if($portfolio_style == '1' || $portfolio_style == '2') :  ?>
-							<div class="overlay-background"></div>
-							<div class="overlay">
-								<div class="inner-overlay">
-									<?php if($portfolio_hover == '1' || $portfolio_hover == '2' || $portfolio_hover == '4' || $portfolio_hover == '5') : ?>
-										<h3><a title="<?php the_title(); ?>" href="<?php echo esc_attr($proton_post_url) ?>"><?php the_title(); ?></a></h3>
-									<?php endif; ?>
-									<?php if($portfolio_hover == '2' || $portfolio_hover == '5') : ?>
-										<span>
-											<?php
-												$proton_portfolio_categories_link = $options['proton_portfolio_categories_link'];
-												if($proton_portfolio_categories_link){
-													foreach((get_the_category()) as $category) { echo $category->cat_name . ' '; }
-												}
-												else {
-													the_category(' ');
-												}
-											?>
-										</span>
-									<?php endif; ?>
-									<?php if($portfolio_hover == '3' || $portfolio_hover == '6') : ?>
-										<h3 class="gallery-plus">+</h3>
-									<?php endif; ?>
-								</div>
-							</div>
-						<?php endif; ?>
-					</div>
-					<!-- 안내바 추가 20170713-->
-					<!-- 안내바 로직 -->
-					<?php
-						//변수초기화 및 세팅
-						//응모가능한지 체크 불가능=false / 가능=true
-						$event_ck = false;
 						
-						$post_id     = get_the_ID();
-						$event_end   = '';
-						$event_all_prize = '';
-						$event_prize     = '';
-						$event_enter     = '';
-						$event_type      = 0;
-						
-						$event_ck_tx = "마감";
-						$event_type_tx = "배송";
-						
-						if($row = get_row($post_id)) {
-	
-							//변수설정
-							$post_id         = $row->post_id;
-							$event_end       = $row->event_end;
-							$event_prize     = $row->event_prize;
-							$event_all_prize = $row->event_all_prize;
-							$event_enter     = $row->event_enter;
-							$event_type      = $row->event_type;
-	
-							$event_edate     = substr($event_end, 0, 10);
-							$event_etime     = substr($event_end, 11, 18);
+						<!-- information bar logic -->
+						<?php
+							//변수초기화 및 세팅
+							//응모가능한지 체크 불가능=false / 가능=true
+							$event_ck = false;
 							
-							//Server Event Timecheck
-							//기준시간 한국으로 설정
-							date_default_timezone_set('Asia/Seoul');
+							$post_id     = get_the_ID();
+							$event_end   = '';
+							$event_all_prize = '';
+							$event_prize     = '';
+							$event_enter     = '';
+							$event_type      = 0;
 							
-							$curnt_t     = date("Y-m-d H:i:s");
-							$event_end_t = date("Y-m-d H:i:s", strtotime($event_end));
+							$event_ck_tx = "마감";
+							$event_type_tx = "배송";
+							$event_prize_class = "row2";
 							
-							//남은경품이 0이거나 남은시간이 없을때 응모버튼비활성화
-							if((strtotime($event_end_t) <= strtotime($curnt_t)) || $event_prize == "0" || $event_prize == ""){
-								$event_ck = false;
-							}else{
-								$event_ck = true;
+							if($row = get_row($post_id)) {
+		
+								//변수설정
+								$post_id         = $row->post_id;
+								$event_end       = $row->event_end;
+								$event_prize     = $row->event_prize;
+								$event_all_prize = $row->event_all_prize;
+								$event_enter     = $row->event_enter;
+								$event_type      = $row->event_type;
+		
+								$event_edate     = substr($event_end, 0, 10);
+								$event_etime     = substr($event_end, 11, 18);
+								
+								//Server Event Timecheck
+								//기준시간 한국으로 설정
+								date_default_timezone_set('Asia/Seoul');
+								
+								$curnt_t     = date("Y-m-d H:i:s");
+								$event_end_t = date("Y-m-d H:i:s", strtotime($event_end));
+								
+								//남은경품이 0이거나 남은시간이 없을때 응모버튼비활성화
+								if((strtotime($event_end_t) <= strtotime($curnt_t)) || $event_prize == "0" || $event_prize == ""){
+									$event_ck = false;
+								}else{
+									$event_ck = true;
+								}
 							}
-						}
-						
-						//이벤트 진행/마감 텍스트 설정
-						if($event_ck == true){
-							$event_ck_tx ="진행";
-						}else{
-							$event_ck_tx ="마감";
-						}
-						
-						//이벤트타입 텍스트 설정
-						if($event_type == 1){
-							$event_type_tx ="매장";
-						}else{
-							$event_type_tx ="배송";
-						}
 							
-						//test
-						//echo "<script>alert('".$event_ck."');</script>";
-						//echo $event_ck;
+							//이벤트 진행/마감 텍스트 설정
+							if($event_ck == true){
+								$event_ck_tx ="진행";
+							}else{
+								$event_ck_tx ="이벤트 종료";
+							}
+							
+							//이벤트타입 텍스트 설정
+							if($event_type == 1){
+								$event_type_tx ="매장";
+							}else{
+								$event_type_tx ="배송";
+							}
+							
+							//경품 자릿수체크 클래스변경
+							if( strlen($event_prize) > 3 || strlen($event_all_prize) > 3 ){
+								
+								$event_prize_class = "row2 break-line";
+								
+								//3자리마다 콤마
+								$event_prize     = number_format($event_prize);
+								$event_all_prize = number_format($event_all_prize);
+							}
+							
+							//현재 유저 정보를 가져옴
+							global $current_user;
+							wp_get_current_user();
+
+							//+유저 응모정보 가져옴
+							$user_id = $current_user->ID;
+
+							$result_text = '♡';
+							$user_result_row = get_user_result($post_id, $user_id);
+							
+							if($user_result_row){
+								$result_text = '♥';
+							}
 						?>
 						
-						<!-- 안내바 화면 1 -->
-						<style type="text/css">
-						.tg-infobar1  {border-collapse:collapse;border-spacing:0;}
-						.tg-infobar1 td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg-infobar1 th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-						.tg-infobar1 .tg-infobar1-kn3m{font-weight:bold;font-size:14px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#0ccfed;color:#ffffff;text-align:center}
-						.tg-infobar1 .tg-infobar1-9ehz{font-weight:bold;font-size:14px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#f2c601;color:#ffffff;text-align:center}
-						.tg-infobar1 .tg-infobar1-9eht{font-weight:bold;font-size:14px;font-family:Arial, Helvetica, sans-serif !important;;background-color:darkgray;color:#ffffff;text-align:center}
-						.tg-infobar1 .tg-infobar1-e4s0{font-weight:bold;font-size:14px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#ff7522;color:#ffffff;text-align:right}
-						</style>
-						
-						<table class="tg-infobar1" style="undefined;table-layout: fixed; width: 100%">
-						<input type="hidden" id="event_end" name="event_end" value="<?php echo $event_end;?>"/>
-						
-						<colgroup>
-						<col style="width: 46px">
-						<col style="width: 46px">
-						</colgroup>
-						
-						  <tr>
-						  <?php if($event_ck==true){?>
-							<th class="tg-infobar1-kn3m"><?php echo $event_type_tx ?></th>
-							<th class="tg-infobar1-9ehz"><?php echo $event_ck_tx ?></th>
-							<th class="tg-infobar1-e4s0"><text id="event_countdown_<?php echo $i ?>"/></th>
-							<?php } else { ?>
-							<th colspan="3" class="tg-infobar1-9eht">이벤트종료</th>
-							<?php } ?>
-						  </tr>
-						</table>
-						
+						<!-- timer setting-->
 						<script>
 						//time설정
 						var event_end = '<?php echo date("Y-m-d H:i:s", strtotime($event_end))?>';
@@ -405,85 +375,101 @@
 						}
 						</script>
 						
-						<!-- 안내바 화면 2 -->
-						<style type="text/css">
-						.tg-infobar2  {border-collapse:collapse;border-spacing:0;border:none;}
-						.tg-infobar2 td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
-						.tg-infobar2 th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
-						.tg-infobar2 .tg-infobar2-s8nl{font-family:Arial, Helvetica, sans-serif !important;;background-color:#ffffff;color:#9b9b9b;text-align:center;vertical-align:top}
-						.tg-infobar2 .tg-infobar2-jsx6{font-weight:bold;font-family:Arial, Helvetica, sans-serif !important;;background-color:#ffffff;;color:#ff7522;text-align:right;vertical-align:top}
-						.tg-infobar2 .tg-infobar2-dnyv{font-weight:bold;font-family:Arial, Helvetica, sans-serif !important;;background-color:#ffffff;color:#656565;text-align:center}
-						.tg-infobar2 .tg-infobar2-y6oy{font-weight:bold;font-family:Arial, Helvetica, sans-serif !important;;background-color:#ffffff;color:#656565;text-align:center;vertical-align:top}
-						</style>
-						
-						<table class="tg-infobar2" style="undefined;table-layout: fixed; width: 100%">
-						
-						<colgroup>
-						<col style="width: 45px">
-						<col style="width: 100%">
-						<col style="width: 22px">
-						<col style="width: 15px">
-						<col style="width: 45px">
-						<col style="width: 80%">
-						<col style="width: 22px">
-						</colgroup>
-						
-						  <tr>
-							<th class="tg-infobar2-dnyv">경품</th>
-							<th class="tg-infobar2-jsx6"><?php echo $event_prize?>/<?php echo $event_all_prize?></th>
-							<th class="tg-infobar2-y6oy">개</th>
-							<th class="tg-infobar2-s8nl">|</th>
-							<th class="tg-infobar2-y6oy">응모</th>
-							<th class="tg-infobar2-jsx6"><?php echo $event_enter?></th>
-							<th class="tg-infobar2-y6oy">명</th>
-						  </tr>
-						</table>
-
-					<?php
-						if(has_post_thumbnail()){
-							the_post_thumbnail();
-						}
-						else {
-							$proton_count = count(get_the_category());
-							if($proton_count >= 10){
-								echo '<img src="' . get_template_directory_uri() . '/assets/images/default-tall.png" />';
-							}
-							else {
-								echo '<img src="' . get_template_directory_uri() . '/assets/images/default.png" />';
-							}
-						}
-						
-						//스크립트 변수설정을 위한 변수++
-						$i++;
-					?>
-				</div>
-				
-				<?php if($portfolio_style == '3' || $portfolio_style == '4') :  ?>
-					<div class="meta-tags-outside">
-						<span>
-							<!--포트폴리오 템플릿 카테고리 숨기기 20170523 eley - 주석삭제 20170714 -->
-							<?php
+						<!-- information bar view start -->
+						<a href="<?php echo esc_attr($proton_post_url); ?>" class="inner">
 							
-								$proton_portfolio_categories_link = $options['proton_portfolio_categories_link'];
-								if($proton_portfolio_categories_link){
-									foreach((get_the_category()) as $category) { echo $category->cat_name . ' '; }
+							<!-- info part -->
+							<div class="info">
+								<!-- 타이머 설정 위한 event_end -->
+								<input type="hidden" id="event_end" name="event_end" value="<?php echo $event_end;?>"/>
+								
+								<!-- information bar 1 -->
+								<ul class="row1">
+									<li class="flags">
+										<?php if($event_ck==true){?>
+										<div class="event-flag-group flex">
+											<p class="event-flag shipping col-6"><?php echo $event_type_tx ?></p>
+											<p class="event-flag ing col-6"><?php echo $event_ck_tx ?></p>
+										</div><!-- /.event-flag-group -->
+										<?php } else { ?>
+											<li class="closed"><?php echo $event_ck_tx ?></li>
+										<?php } ?>
+									</li>
+									<li class="time"><text id="event_countdown_<?php echo $i ?>"/></li>
+								</ul>
+								
+								<!-- information bar 2 -->
+								<ul class="<?php echo $event_prize_class ?>">
+									<li class="col-6">
+										<dl>
+											<dt>경품</dt>
+											<dd><span class="value"><?php echo $event_prize?> / <?php echo $event_all_prize?></span><span class="unit">개</span></dd>
+										</dl>
+									</li><!-- /.col -->
+									<li class="col-6">
+										<dl>
+											<dt>응모</dt>
+											<dd><span class="value"><?php echo $event_enter?></span><span class="unit">명</span></dd>
+										</dl>
+									</li><!-- /.col -->
+								</ul>
+							</div><!-- /.info -->
+							
+							<!-- thumbnail part -->
+							<div class="entry-img">
+							<?php
+								if(has_post_thumbnail()){
+									the_post_thumbnail();
 								}
 								else {
-									the_category(' ');
+									$proton_count = count(get_the_category());
+									if($proton_count >= 10){
+										echo '<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="' . get_template_directory_uri() . '/assets/images/default-tall.png" />';
+									}
+									else {
+										echo '<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="' . get_template_directory_uri() . '/assets/images/default.png" />';
+									}
 								}
-							
+								
+								//스크립트 변수설정을 위한 변수++
+								$i++;
 							?>
-						</span>
-						<h3><a title="<?php the_title(); ?>" href="<?php echo esc_attr($proton_post_url) ?>"><?php the_title(); ?></a></h3>
-					</div>
-				<?php endif; ?>
-			</div>
+							</div><!-- /.thumbnail -->
+							
+							<!-- title part -->
+							<div class="title">
+								<p class="cat">
+									<?php
+										$proton_portfolio_categories_link = $options['proton_portfolio_categories_link'];
+										if($proton_portfolio_categories_link){
+											foreach((get_the_category()) as $category) { echo $category->cat_name . ' '; }
+										}
+										else {
+											the_category(' ');
+										}
+									?>
+								</p>
+								<p class="tit"><?php the_title()?> <?php echo $result_text?></p>
+							</div><!-- /.title -->
+							
+						</a><!-- /.inner -->
+						<!-- information bar view end -->
+						
+		<!-- portfolio renwal end -------------------------------------------------------------------------->					
+					
+					</div><!-- /.event-item -->
+					
+				</div><!-- /.item-holder -->
+			</div><!-- /.col-md-3 col-sm-6 col-xs-12 selector -->
 			<?php endwhile; endif; wp_reset_postdata(); ?>
 		</div>
+		<!-- portfolio road end-->
+		
 		<?php
 			$proton_portfolio_button = get_field("proton_portfolio_button");
 			$proton_portfolio_button_link = get_field("proton_portfolio_button_link");
 		?>
+		
 		<?php if($proton_portfolio_button || $proton_portfolio_button_link) : ?>
 			<div class="row">
 				<div class="show-more-holder">
@@ -500,14 +486,18 @@
 				</div>
 			</div>
 		<?php endif; ?>
+		
 		<div class="row">
 			<div class="col-md-12">
 				<?php proton_pagination($query->max_num_pages, "page-pagination", 999); ?>
 			</div>
 		</div>
 	</div>
+	
 	<?php endwhile; endif; ?>
+	
 	<?php if($options['portfolio_masonry']) : ?>
+	
 		<?php if($options['portfolio_masonry'] != true) : ?>
 			<script type="text/javascript">
 				jQuery(window).load(function($){
@@ -517,7 +507,9 @@
 				});
 			</script>
 		<?php endif; ?>
+		
 	<?php else : ?>
+	
 		<?php if($proton_portfolio_masonry != true) : ?>
 			<script type="text/javascript">
 				jQuery(window).load(function($){
@@ -528,9 +520,12 @@
 			</script>
 		<?php endif; ?>
 	<?php endif; ?>
+	
 <?php get_footer(); ?>
+
+
 <?php
-//이벤트정보 불러오는 함수
+/* function : event info load */
 function get_row($post_id){
 	global $wpdb;
 	
@@ -541,5 +536,23 @@ function get_row($post_id){
 		$row = $wpdb->get_row( $sql );
 	}
 	return $row;
-} 
+}
+
+/* +function : user result load */
+function get_user_result($post_id, $user_id){
+	global $wpdb;
+	
+	$user_result_row = null;
+	$post_id = absint($post_id);
+	$user_id = absint($user_id);
+	
+	if( $post_id > 0 && $user_id > 0 ){
+		$user_result_row =
+			$wpdb->get_results("SELECT * FROM wp_event_enter, wp_event_info
+								WHERE wp_event_enter.event_id = wp_event_info.event_id
+								AND wp_event_info.post_id = $post_id
+								AND wp_event_enter.user_id = $user_id");
+	}
+	return $user_result_row;
+}
 ?>

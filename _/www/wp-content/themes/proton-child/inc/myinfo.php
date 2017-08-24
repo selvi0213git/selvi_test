@@ -5,7 +5,11 @@
 * ---------------------------------------------------
 * [after]
 * [20170703] | 마이페이지 view및 로직 생성                | eley 
+*
+* [RENEWAL]----------------------------------------------------------
+* [20170804] | RENEWAL                            | eley 
 */
+
 class my_info {
 	function __construct(){
 		//편의를 위해 wordpress 테이블이름을 변수로 만들어줌
@@ -71,97 +75,58 @@ class my_info {
 			<input type="hidden" id="user_zip" name="user_zip" value="<?php echo $user_zip;?>" />
 			<input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id;?>" />
 			
-			<style type="text/css">
-			.tg-myinfo  {border-collapse:collapse;border-spacing:10;border:none;}
-			.tg-myinfo  td{font-family:Arial, sans-serif;font-size:14px;padding:7px 3px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
-			.tg-myinfo  td{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:7px 3px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
-			.tg-myinfo .tg-myinfo-0wuw{font-weight:bold;background-color:#ffffff;color:#9b9b9b}
-			.tg-myinfo .tg-myinfo-ahts{background-color:#ffffff;color:#9b9b9b;text-align:center}
-			.tg-myinfo .tg-myinfo-pr3q{background-color:#ffffff;color:#9b9b9b}
-			.tg-myinfo .tg-myinfo-cwl8{font-weight:bold;background-color:#ffffff;color:#9b9b9b;}
-			.tg-myinfo .tg-myinfo-2i35{font-weight:bold;background-color:#ffffff;color:#9b9b9b}
-			.tg-myinfo .tg-myinfo-0ql5{background-color:#ffffff;color:#9b9b9b;text-align:center}
-			.tg-myinfo .tg-myinfo-jplj{background-color:#ffffff;color:#9b9b9b}
-			.tg-myinfo .tg-myinfo-0hak{background-color:#ffffff;color:#9b9b9b;text-align:center}
-			.tg-myinfo .tg-myinfo-0y0a{font-weight:bold;background-color:#ffffff;color:#9b9b9b;text-align:center;}
-			
-			input[type=text] { -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border-width:thin; border-style:solid;}
-			
-			textarea { -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
-			
-			.btn-myinfo {
-				background: #2990ff;
-				background-image: -webkit-linear-gradient(top, #2990ff, #2990ff);
-				background-image: -moz-linear-gradient(top, #2990ff, #2990ff);
-				background-image: -ms-linear-gradient(top, #2990ff, #2990ff);
-				background-image: -o-linear-gradient(top, #2990ff, #2990ff);
-				background-image: linear-gradient(to bottom, #2990ff, #2990ff);
-				-webkit-border-radius: 0;
-				-moz-border-radius: 0;
-				border-radius: 0px;
-				font-weight:bold;
-				font-family: Arial;
-				color: #ffffff;
-				font-size: 12px;
-				padding: 3px 6px 3px 6px;
-				text-decoration: none;
-				border-width:thin; 
-				border-style:solid;
-			}
-			
-			.btn-myinfo:hover {
-				color: #ffffff;
-				background: #4ba1fc;
-				background-image: -webkit-linear-gradient(top, #4ba1fc, #4ba1fc);
-				background-image: -moz-linear-gradient(top, #4ba1fc, #4ba1fc);
-				background-image: -ms-linear-gradient(top, #4ba1fc, #4ba1fc);
-				background-image: -o-linear-gradient(top, #4ba1fc, #4ba1fc);
-				background-image: linear-gradient(to bottom, #4ba1fc, #4ba1fc);
-				text-decoration: none;
-			}
-
-			</style>
-
-			<table class="tg-myinfo" style="undefined;table-layout: fixed; width: 100%">
-			
-			<colgroup>
-				<col style="width: 10px">
-				<col style="width: 10px">
-				<col style="width: 10px">
-			</colgroup>
-			
-			  <tr>
-				<td class="tg-myinfo-0y0a" colspan="3"><image style="border: 1px solid #9b9b9b;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px;" src="<?php echo $user_pic;?>"></td>
-			  </tr>
-			   <tr>
-				<td class="tg-myinfo-jplj" colspan="3" style="text-align:center">Login by. <?php echo $user_by;?></td>
-			  </tr>
-			  <tr>
-				<td class="tg-myinfo-cwl8">닉네임</td>
-				<td class="tg-myinfo-jplj" colspan="2"><input type="text" id="user_nic" name="user_nic" value="<?php echo $user_nic;?>" style="width:100%;" placeholder="닉네임"/></td>
-			  </tr>
-			  <tr>
-				<td class="tg-myinfo-cwl8">이름(실명)</td>
-				<td class="tg-myinfo-pr3q" colspan="2"><input type="text" id="user_name" name="user_name" value="<?php echo $user_name;?>" style="width:100%;" placeholder="이름(실명)"/></td>
-			  </tr>
-			  <tr>
-				<td class="tg-myinfo-cwl8">휴대전화</td>
-				<td class="tg-myinfo-jplj" colspan="2"><input type="text" id="user_phone" name="user_phone" value="<?php echo $user_phone;?>" style="width:100%;" placeholder="휴대전화"/></td>
-			  </tr>
-			  <tr>
-				<td class="tg-myinfo-cwl8">주소</td>
-				<td class="tg-myinfo-pr3q">
-					<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0; position: absolute;">
-						<img src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+			<!-- View -->
+			<div class="form-frame">
+				<!-- user info-->
+				<div class="user-profile">
+					<!-- profile image -->
+					<div class="user-img">
+						<image class="flex-img" src="<?php echo $user_pic;?>">
 					</div>
-					<input type="text" onclick="sample3_execDaumPostcode()" id="user_addr1" name="user_addr1" class="d_form large" value="<?php echo $user_addr1;?>" style="width:100%;" placeholder="주소" readonly />
-				</td>
-				<td class="tg-myinfo-pr3q"><input type="text" id="user_addr2" name="user_addr2" value="<?php echo $user_addr2;?>" style="width:100%;" placeholder="상세주소"/></td>
-			  </tr>
-			  <tr>
-				<td class="tg-myinfo-0y0a" colspan="3"><input type="button" class="btn-myinfo" id="myinfo_submit" value="프로필 저장" style="width:100%; text-align:center; background-color:#2990ff; color: #ffffff;"></td>
-			  </tr>
-			</table>
+					
+					<!-- login information -->
+					<p class="login-info">Login by. <?php echo $user_by;?></p>
+				</div><!-- /.user-profile -->
+
+				<!-- profile information -->
+				<div class="form-list">
+					<dl>
+						<dt>닉네임</dt>
+						<dd>
+							<input type="text" class="input-text col-6" id="user_nic" name="user_nic" value="<?php echo $user_nic;?>"  placeholder="닉네임"/>
+						</dd>
+					</dl>
+					<dl>
+						<dt>이름(실명)</dt>
+						<dd>
+							<input type="text" class="input-text col-6" id="user_name" name="user_name" value="<?php echo $user_name;?>"  placeholder="이름(실명)"/>
+						</dd>
+					</dl>
+					<dl class="">
+						<dt>휴대폰('-'포함)</dt>
+						<dd>
+							<input type="text" class="input-text col-6" id="user_phone" name="user_phone" value="<?php echo $user_phone;?>"  placeholder="휴대전화"/>
+						</dd>
+					</dl>
+					<dl class="field-addr">
+						<dt>주소</dt>
+						<dd>
+							<!-- DAUM MAP API -->
+							<div id="my_wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0; position: absolute;">
+								<img src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="my_foldDaumPostcode()" alt="접기 버튼">
+							</div>
+							<input type="text" class="input-text col-9" onclick="my_sample3_execDaumPostcode()" id="user_addr1" name="user_addr1" class="d_form large" value="<?php echo $user_addr1;?>" placeholder="주소" readonly />
+							<input type="text" class="input-text col-9" id="user_addr2" name="user_addr2" value="<?php echo $user_addr2;?>" placeholder="상세주소"/>
+						</dd>
+					</dl>
+				</div><!-- /.form-list -->
+
+				<!-- Submit -->
+				<div class="field-control">
+					<input type="button" value="기본정보 저장" class="btn-univ" id="myinfo_submit">
+				</div>
+				
+			</div><!-- /.form-frame -->
 		
 		</form>
 		
@@ -169,14 +134,14 @@ class my_info {
 		<script>
 		<!-- 다음주소 api 시작-->
 			// 우편번호 찾기 찾기 화면을 넣을 element
-			var element_wrap = document.getElementById('wrap');
+			var my_element_wrap = document.getElementById('my_wrap');
 
-			function foldDaumPostcode() {
+			function my_foldDaumPostcode() {
 				// iframe을 넣은 element를 안보이게 한다.
-				element_wrap.style.display = 'none';
+				my_element_wrap.style.display = 'none';
 			}
 
-			function sample3_execDaumPostcode() {
+			function my_sample3_execDaumPostcode() {
 				// 현재 scroll 위치를 저장해놓는다.
 				var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
 				new daum.Postcode({
@@ -216,21 +181,21 @@ class my_info {
 
 						// iframe을 넣은 element를 안보이게 한다.
 						// (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
-						element_wrap.style.display = 'none';
+						my_element_wrap.style.display = 'none';
 
 						// 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
 						document.body.scrollTop = currentScroll;
 					},
 					// 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
 					onresize : function(size) {
-						element_wrap.style.height = size.height+'px';
+						my_element_wrap.style.height = size.height+'px';
 					},
 					width : '100%',
 					height : '100%'
-				}).embed(element_wrap);
+				}).embed(my_element_wrap);
 
 				// iframe을 넣은 element를 보이게 한다.
-				element_wrap.style.display = 'block';
+				my_element_wrap.style.display = 'block';
 			}
 		<!-- 다음주소 api 끝-->
 		
@@ -317,7 +282,9 @@ class my_info {
 
 		$goback = wp_get_referer();
 		$goback = remove_query_arg('myinfo-ID', $goback);
-		wp_redirect( $goback );
+		
+		print "<script language=javascript> alert('저장되었습니다.'); location.replace('".$goback."'); </script>";
+		//wp_redirect( $goback );
 		exit;
 		
 	}

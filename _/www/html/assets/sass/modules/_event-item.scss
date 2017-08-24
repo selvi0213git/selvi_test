@@ -28,8 +28,8 @@
 			background-color: #fff;
 			
 			li {
-				padding-top: 10px;
-				padding-bottom: 9px;
+				padding-top: 9px;
+				padding-bottom: 10px;
 				font-size: 14px;
 			}
 
@@ -62,6 +62,7 @@
 		}
 
 		dl {
+			@extend .clearfix;
 			padding-left: 9px;
 			padding-right: 12px;
 			line-height: 1.4;
@@ -83,6 +84,35 @@
 			}
 
 		}//dl
+
+		.row2.break-line {
+			li {
+				float: none;
+				width: 100%;
+
+				&:first-child {
+					padding-bottom: 0;
+				}
+				&:last-child {
+					padding-top: 0;
+					
+					&::before {
+						display: none;
+					}
+				}
+			}
+
+			dl {
+				dt {
+					float: left;
+					
+				}
+				dd {
+					float: right;
+					
+				}
+			}
+		}
 	}//info
 
 	.title {
@@ -97,6 +127,8 @@
 			font-size: 13px;
 		}
 		.tit {
+			display: block;
+			min-height: 46px;
 			@include font-bold;
 			font-size: 19px;
 			line-height: per(24, 19);

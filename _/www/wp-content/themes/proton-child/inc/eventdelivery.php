@@ -5,6 +5,9 @@
 * ---------------------------------------------------
 * [after]
 * [20170707] | 소스정리 및 기능 마무리                 | eley 
+*
+* [RENEWAL]----------------------------------------------------------
+* [20170731] | RENEWAL                        | eley 
 */
 class event_delivery {
 	function __construct(){
@@ -17,6 +20,8 @@ class event_delivery {
 		$this->table2 = $wpdb->prefix . 'event_enter';
 		//사용자 테이블 - 회원
 		$this->table3 = $wpdb->prefix . 'users';
+		//+이벤트 테이블
+		$this->table4 = $wpdb->prefix . 'event_info';
 		
 		//숏코드 등록
 		add_shortcode( 'eventdelivery', array($this, 'shortcode') );
@@ -60,11 +65,13 @@ class event_delivery {
 		$delivery_etc = '';
 		//event_id 전송받음
 		$event_id     = isset($_REQUEST['event_id'])? $_REQUEST['event_id'] : '';
+		//+post_id
+		$post_id = '';
 		
 		//나쁜접속확인
 		$url_ck = false;
 		//버튼설정
-		$submit_label = '저장';
+		$submit_label = '등록';
 		
 		//업데이트체크-request deliveryDB
 		$update = false;
@@ -78,6 +85,8 @@ class event_delivery {
 				$enter_id = $enter_row->enter_id;
 				$enter_status = $enter_row->status;
 				$enter_user_id = $enter_row->user_id;
+				//+event_id
+				$event_id = $enter_row->event_id;
 				
 				if($user_id!=$enter_user_id || $enter_status=='0'){
 					$url_ck = false;
@@ -128,6 +137,10 @@ class event_delivery {
 				$delivery_etc = $delivery_row->delivery_etc;
 			}
 		}
+		
+		//+post_id
+		$event_row = $this->get_event_row($event_id);
+		$post_id = $event_row->post_id;
 		?>
 				
 		<!--폼 구성-->
@@ -139,108 +152,99 @@ class event_delivery {
 			<input type="hidden" id="enter_id" name="enter_id" value="<?php echo $enter_id;?>" />
 			<input type="hidden" id="delivery_zip" name="delivery_zip" value="<?php echo $delivery_zip;?>" />
 			<input type="hidden" id="basic_YN" name="basic_YN" value="<?php echo $basic_YN;?>" />
+			<input type="hidden" id="post_id" name="post_id" value="<?php echo $post_id;?>" />
 			
-			<!-- css -->
-			<style type="text/css">
-			.tg-delivery  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-			.tg-delivery  td{font-family:Arial, sans-serif;font-size:14px;padding:3px 6px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;border-top-width:1px;border-bottom-width:1px;}
-			.tg-delivery  th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:3px 6px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;border-top-width:1px;border-bottom-width:1px;}
-			.tg-delivery .tg-delivery-wt2v{background-color:#ffffff;font-size:12px;font-family:Arial, Helvetica, sans-serif !important;color:#9b9b9b;}
-			.tg-delivery .tg-delivery-6avc{font-size:12px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#ffffff;color:#9b9b9b;}
-			.tg-delivery .tg-delivery-6z7r{font-weight:bold;font-size:14px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#9b9b9b;color:#ffffff;text-align:center;}
-			.tg-delivery .tg-delivery-qdzd{font-weight:bold;font-size:12px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#ffffff;color:#9b9b9b;}
-			.tg-delivery .tg-delivery-hhq9{font-weight:bold;font-size:12px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#ffffff;color:#ffcb2f;}
+			<!-- delivery renewal start -------------------------------------------------------------------------->
+			
+			<!-- VIEW -->
+			<!-- yeonok: 배송지 입력화면 시작 -->
+			<article class="page-basic">
+				<div class="inner-container">
+					
+					<div class="page-basic-header">
+						<h1 class="page-title">배송지 정보 입력</h1>
+						<p class="page-desc">경품 전달을 위한 정보입니다. 정확하게 입력 해 주세요.</p>
+					</div><!-- /.page-basic-header -->
 
-			input[type=text] { -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border-width:thin; border-style:solid;}
-			
-			textarea { -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
-			
-			.btn-delivery {
-				background: #ffcb2f;
-				background-image: -webkit-linear-gradient(top, #ffcb2f, #ffcb2f);
-				background-image: -moz-linear-gradient(top, #ffcb2f, #ffcb2f);
-				background-image: -ms-linear-gradient(top, #ffcb2f, #ffcb2f);
-				background-image: -o-linear-gradient(top, #ffcb2f, #ffcb2f);
-				background-image: linear-gradient(to bottom, #ffcb2f, #ffcb2f);
-				-webkit-border-radius: 0;
-				-moz-border-radius: 0;
-				border-radius: 0px;
-				font-weight:bold;
-				font-family: Arial;
-				color: #ffffff;
-				font-size: 12px;
-				padding: 3px 6px 3px 6px;
-				text-decoration: none;
-				border-width:thin; 
-				border-style:solid;
-			}
-			
-			.btn-delivery:hover {
-				color: #ffffff;
-				background: #ffd557;
-				background-image: -webkit-linear-gradient(top, #ffd557, #ffd557);
-				background-image: -moz-linear-gradient(top, #ffd557, #ffd557);
-				background-image: -ms-linear-gradient(top, #ffd557, #ffd557);
-				background-image: -o-linear-gradient(top, #ffd557, #ffd557);
-				background-image: linear-gradient(to bottom, #ffd557, #ffd557);
-				text-decoration: none;
-			}
-			
-			</style>
-			
-			<!-- 폼 구성값 -->
-			<table class="tg-delivery" style="undefined;table-layout: fixed; width: 100%">
-			<tr>
-				 <th class="tg-delivery-6z7r" colspan="3">기본정보</th>
-			 </tr>
-			<tr>
-				<td class="tg-delivery-qdzd">이름(실명)</td>
-				<td class="tg-delivery-wt2v" colspan="2"><input type="text" id="delivery_name" name="delivery_name" value="<?php echo $delivery_name;?>" style="width:100%;" placeholder="이름(실명)"/></td>
-			</tr>
-			<tr>
-				<td class="tg-delivery-qdzd">휴대전화</td>
-				<td class="tg-delivery-wt2v" colspan="2"><input type="text" id="delivery_phone" name="delivery_phone" value="<?php echo $delivery_phone;?>" style="width:100%;" placeholder="휴대전화('-'포함)"/></td>
-			</tr>
-			<tr>
-				<td class="tg-delivery-qdzd">주소</td>
-				<td class="tg-delivery-wt2v">
-					<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0; position: absolute;">
-					<img src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-					</div>
-					<input type="text" onclick="sample3_execDaumPostcode()" id="delivery_addr1" name="delivery_addr1" class="d_form large" value="<?php echo $delivery_addr1;?>" style="width:100%;" placeholder="주소" readonly />
-				</td>
-				<td class="tg-delivery-wt2v">
-					<input type="text" id="delivery_addr2" name="delivery_addr2" value="<?php echo $delivery_addr2;?>" style="width:100%;" placeholder="상세주소"/>
-				</td>
-			</tr>
-			<tr>
-				<td class="tg-delivery-hhq9" colspan="3">
-					<input type="checkbox" id="basic_YN_ck" name="basic_YN_ck" value="<?php echo $basic_YN;?>" checked="checked"/>&nbsp;&nbsp;기본정보로 등록	
-				</td>
-			</tr>
-			<tr>
-				<td class="tg-delivery-qdzd" colspan="3">기타</td>
-			</tr>
-			<tr>
-				<td class="tg-delivery-6avc" colspan="3">
-					<textarea onchange="resize(this)" id="delivery_etc" name="delivery_etc" value="<?php echo $delivery_etc;?>" style="width:100%"><?php echo $delivery_etc;?></textarea>
-				</td>
-			</tr>
-			<tr <?php if($update == true) : ?> style="display:none;" <?php endif;?>>
-				<td class="tg-delivery-hhq9">
-					<input type="checkbox" id="agree_individual" name="agree_individual" checked="checked"/>&nbsp;&nbsp;<a onclick="popupFunc('http://selvitest.cafe24.com/agree_individual.html',400,600,'개인정보동의')"><span style="color:#ffcb2f;">개인정보동의</span></a>	
-				</td>
-				<td class="tg-delivery-hhq9" colspan="2">
-					<input type="checkbox" id="agree_service" name="agree_service" checked="checked"/>&nbsp;&nbsp;<a onclick="popupFunc('http://selvitest.cafe24.com/agree_service.html',400,600,'서비스이용약관동의')"><span style="color:#ffcb2f;">서비스이용약관동의</span></a>
-				</td>
-			</tr>
-			<tr>
-				<td class="tg-delivery-hhq9" colspan="3">
-					<input type="button" class="btn-delivery" name="delviery_submit" id="delviery_submit" value="<?=$submit_label?>" style="width:100%; text-align:center; background-color:#ffcb2f; color:#ffffff">
-				</td>
-			</tr>
-			</table>
+					<div class="page-basic-content">
+
+						<section class="write-address">
+							<div class="form-frame">
+								<p class="check-form check-default">
+									<input type="checkbox" id="basic_YN_ck" name="basic_YN_ck" value="<?php echo $basic_YN;?>" checked>
+									<label for="basic_YN_ck">기본 정보로 등록</label>
+								</p>
+								<div class="form-list">
+									<dl>
+										<dt>이름(실명)</dt>
+										<dd>
+											<input type="text" class="input-text col-6" id="delivery_name" name="delivery_name" value="<?php echo $delivery_name;?>">
+										</dd>
+									</dl>
+									<dl class="">
+										<dt>휴대폰('-'포함)</dt>
+										<dd>
+											<input type="text" class="input-text col-6" id="delivery_phone" name="delivery_phone" value="<?php echo $delivery_phone;?>">
+										</dd>
+									</dl>
+									<dl class="field-addr">
+										<dt>주소</dt>
+										<dd>
+											<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0; position: absolute; z-index: 999;">
+												<img src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+											</div>
+											<input type="text" class="input-text col-9 d_form large" placeholder="주소" onclick="sample3_execDaumPostcode()" id="delivery_addr1" name="delivery_addr1" value="<?php echo $delivery_addr1;?>" readonly>
+											<input type="text" class="input-text col-9" placeholder="상세주소" id="delivery_addr2" name="delivery_addr2" value="<?php echo $delivery_addr2;?>">
+										</dd>
+									</dl>
+									<dl>
+										<dt>기타사항</dt>
+										<dd>
+											<textarea onchange="resize(this)" id="delivery_etc" name="delivery_etc" class="input-text col-12" value="<?php echo $delivery_etc;?>"><?php echo $delivery_etc;?></textarea>
+										</dd>
+									</dl>
+								</div><!-- /.form-list -->
+								
+								<?php if($update == false) { ?>
+								<div class="field-agree">
+										<p class="check-form">
+											<input type="checkbox" id="agree_individual" checked="checked">
+											<label for="agree_individual">
+												<a onclick="popupFunc('http://selvitest.cafe24.com/agree_individual.html',400,600,'개인정보동의')">
+													개인정보동의
+												</a>
+											</label>
+										</p>
+										<p class="check-form">
+											<input type="checkbox" id="agree_service" checked="checked">
+											<label for="agree_service">
+												<a onclick="popupFunc('http://selvitest.cafe24.com/agree_service.html',400,600,'서비스이용약관동의')">
+													서비스이용약관동의
+												</a>
+											</label>
+										</p>
+								</div>
+								<?php } ?>
+								
+								<div class="field-control">
+									<?php if($update == false) : ?>
+										<input type="button" name="delviery_submit" id="delviery_submit" value="<?=$submit_label?>" class="btn-univ" style="width:100%; max-width: 228px;">
+									<?php else : ?>
+										<input type="button" name="delviery_submit" id="delviery_submit" value="저장" class="btn-univ btn-univ-small">
+										<input type="reset" value="취소" class="btn-univ btn-univ-small gray">
+									<?php endif ?>								
+								</div>
+								
+							</div><!-- /.form-frame -->
+						</section><!-- /.write-address -->
+
+					</div><!-- /.page-basic-content -->
+				
+				</div><!-- /.inner-container -->
+			</article><!-- /.page-basic -->
+			<!-- yeonok: 배송지 입력화면 끝 -->
 		</form>
+		
 		<!-- script시작 -->
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script>
@@ -395,11 +399,11 @@ class event_delivery {
 				}
 				
 				//checkbox				
-				if($("#agree_individual").is(":checked") == false){
+				if($("#agree_individual").prop(checked="checked") == false){
 					alert("개인정보동의 항목에 동의해주세요");
 					return;
 				}
-				if($("#agree_service").is(":checked") == false){
+				if($("#agree_service").prop(checked="checked") == false){
 					alert("서비스이용약관동의 항목에 동의해주세요");
 					return;
 				}
@@ -433,11 +437,15 @@ class event_delivery {
 		$basic_YN     = trim($_REQUEST['basic_YN']);
 		$delivery_etc = trim($_REQUEST['delivery_etc']);
 		
+		//+저장후 페이지이동을 위한 post_id 추가
+		$post_id = absint($_REQUEST['post_id'])>0 ? $_REQUEST['post_id'] : '';
+		
 		//업데이트 체크
 		$update = false;
-		if( $row = $this->get_delivery_row($enter_id) )
-		//업데이트일경우
-		$update = true;
+		if( $row = $this->get_delivery_row($enter_id) ){
+			//업데이트일경우
+			$update = true;
+		}
 		
 		$data['delivery_id']    = $delivery_id;
 		$data['enter_id']       = $enter_id;
@@ -486,13 +494,17 @@ class event_delivery {
 			$wpdb->update($this->table3, $data2, compact('ID'));
 			
 		//기본정보 저장 x and 없는정보 =>
-		}else{
+		}else if( $update==false && $basic_YN =="N" ){
 			$wpdb->insert($this->table, $data);
 		}
 		
 		$goback = wp_get_referer();
 		$goback = remove_query_arg('eventdelivery-delivery_id', $goback);
-		wp_redirect("http://selvitest.cafe24.com/mypage?enter_id=".$enter_id."#list" );
+		
+		//저장후->이벤트페이지로 이동
+		print "<script language=javascript> alert('저장되었습니다.'); location.replace('". get_permalink($post_id) ."'); </script>";
+		//wp_redirect("http://selvitest.cafe24.com/mypage?enter_id=".$enter_id."#list" );
+		
 		exit;
 	}
 	
@@ -546,5 +558,18 @@ class event_delivery {
 			$delivery_row = $wpdb->get_row( $sql );
 		}
 		return $delivery_row;
+	}
+	
+	//+이벤트 정보 가져오는 함수
+	function get_event_row($event_id){
+		global $wpdb;
+		
+		$event_row = null;
+		$event_id = absint($event_id);
+		if( $event_id > 0 ){
+			$sql = $wpdb->prepare("SELECT * FROM $this->table4 WHERE event_id=%d", $event_id);
+			$event_row = $wpdb->get_row( $sql );
+		}
+		return $event_row;
 	}
 }?>

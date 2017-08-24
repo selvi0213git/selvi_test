@@ -60,6 +60,8 @@
   }
 }
 
+$transition-cubic: cubic-bezier(.21,.5,.52,1);
+
 @mixin transition($property, $duration, $timing-function: $transition-cubic, $delay: 0s) {
   transition: $property $duration $timing-function $delay;
   -webkit-transition: $property $duration $timing-function $delay;

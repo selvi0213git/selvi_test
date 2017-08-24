@@ -1,19 +1,16 @@
 <?php
 /**
-* [init]     
-* [20170525] | 파일 최초 수정                             | eley 
-* -----------------------------------------------------------
-* [after]
-* [20170525] | 상세페이지내의 사이드바 안보이게 주석처리             | eley 
-* [20170613] | 이벤트정보 숏코드 등록(참조: inc/eventinfo.php) 
-*              포스트정보 보이지 않게 설정                     | eley 
-* [20170718] | 관련글 추가                               | eley 
+[init] 
+[20170725] | RENEWAL                               | eley    
+---------------------------------------------------------------
+[after]
 */
 	get_header();
 	$options = get_proton_options();
 	if(have_posts()) : while(have_posts()) : the_post();
 	if(get_field("proton_post_type") == '2') :
-
+		
+		// Detail Page setting	
 		// Layout
 		$portfolio_item_layout = $options['portfolio_item_layout'];
 		$proton_project_single_style = get_field("proton_project_single_style");
@@ -76,8 +73,9 @@
 
 		// Hide category
 		$portfolio_item_categories = $options['portfolio_item_categories'];
-
 	?>
+	
+		<!-- single project setting -->
 		<div class="project-single">
 			<div class="<?php echo esc_attr($proton_project_single_style_row); ?>">
 				<div class="<?php echo esc_attr($proton_project_single_style_content); ?>">
@@ -199,66 +197,47 @@
 			$blog_single_post_date = $options['blog_single_post_date'];
 			$blog_single_next_previous = $options['blog_single_next_previous'];
 		?>
-		<div class="blog blog-single">
-			<div class="row">
-				<div class="<?php echo esc_attr($blog_single_layout_post) ?>">
-					<div class="blog-post">
-						<div class="blog-img">
-							<?php
-								if(has_post_thumbnail() && $blog_single_thumbnail){
-									the_post_thumbnail();
-								}
-							?>
-						</div>
-						<div class="blog-info">
-							<h2><?php the_title(); ?></h2>
-							<!-- 20170613 eley-->
-							<?php echo do_shortcode('[eventinfo]');?>
+		
+		<!-- detail renwal start ----------------------------------------------------------------------------------->
+		
+		<!-- blog single setting -->
+		<!-- class="blog blog-single" -> class="event-detail" change -->
+		
+		<!-- yeonok: 이벤트 상세화면 시작 -->
+		<article class="event-detail">
+		
+			<div class="container">
+				<div class="inner-container">
+				
+					<!-- information bar -->
+					<?php echo do_shortcode('[eventinfo]');?>
 
-							<!-- 20170613 eley
-							<ul class="post-info">
-								<?php //if($blog_single_author_info) : ?>
-									<li><?php //echo esc_attr__("by", "proton") ?> <?php //the_author_posts_link(); ?></li>
-								<?php
-									//endif;
-									//if($blog_single_categories) :
-								?>
-								<li><?php //echo esc_attr__("in", "proton") ?> <?php //the_category(' '); ?></li>
-								<?php
-									//endif;
-									//if($blog_single_post_date) :
-								?>
-								<li><?php //echo esc_attr__("posted", "proton") ?> <span><?php //the_time('F j, Y'); ?></span></li>
-								<?php //ndif; ?>
-							</ul>
-							-->
-							
-							<?php the_content(); ?>
-							<?php if($blog_single_next_previous) : ?>
-								<div class="single-navigation">
-									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-6 prev">
-											<?php previous_post_link('%link',"<i class='fa fa-angle-left'></i><span>". esc_attr__("Previous Post", "proton") ."</span>", true); ?>
-										</div>
-										<div class="col-md-6 col-sm-6 col-xs-6 next">
-											<?php next_post_link('%link',"<span>". esc_attr__("Next Post", "proton") ."</span><i class='fa fa-angle-right'></i>", true); ?>
-										</div>
-									</div>
-								</div>
-							<?php endif; ?>
-							<!-- 관련글 추가 20170718 eley -->
-							<?php echo do_shortcode('[relationlist]');?>
-						</div>
-					</div>
-					<?php comments_template(); ?>
-				</div>
-				<div class="<?php echo esc_attr($blog_single_layout_sidebar); ?>">
-					<!--20170525 eley-->
-					<!--<?php //get_sidebar(); ?>-->
-				</div>
-			</div>
-		</div>
+					<!-- content -->
+					<section class="event-visual">
+						<?php the_content(); ?>
+					</section><!-- /.event-desc -->
+					
+				</div><!-- /.inner-container -->
+			</div><!-- /.container -->
+	
+			<!-- other event -->
+			<section class="other-events">
+				<div class="container">
+				
+					<!-- relation list-->
+					<?php echo do_shortcode('[relationlist]');?>
+										
+				</div><!-- /.container -->
+			</section><!-- /.other-events -->
+
+		</article><!-- /.event-detail -->
+		<!-- yeonok: 이벤트 상세화면 끝 -->
+		
 	<?php endif; ?>
+	
+	<!-- detail renwal end ------------------------------------------------------------------------------------->
+
+<!-- get footer -->	
 <?php
 	endwhile; endif;
 	get_footer();

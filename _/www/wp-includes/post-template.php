@@ -626,7 +626,9 @@ function get_body_class( $class = '' ) {
 					if ( $post_format && !is_wp_error($post_format) )
 						$classes[] = 'single-format-' . sanitize_html_class( $post_format );
 					else
-						$classes[] = 'single-format-standard';
+		// renewal detail body class----------------------------------------------------------------------20170727->
+		// change : $classes[] = 'single-format-standard'; -> $classes[] = 'single-format-standard page-event-detail';
+						$classes[] = 'single-format-standard page-event-detail';
 				}
 			}
 		}

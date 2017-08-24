@@ -12,7 +12,13 @@
 * [20170707] | mypage화면 통합을 위한 php파일 include - mypage.php       | eley 
 * [20170718] | 관련글 php파일 include - relation.php                  | eley 
 * [20170718] | 관리자 php파일 include - admin_control.php             | eley 
-* [20170720] | custom css파일 추가 - /custom.css                     | eley 
+* [20170724] | custom css파일 추가 - custom-style.css                | eley 
+* [20170724] | style 함수 추가(커스텀+부모 css)
+			   부모 css  : /style.css
+			   커스텀 css : /assets/css/custom-style.css
+																  | eley
+* [20170728] | js및 css include - Kboard, rollet, flickity(slider) | eley
+* [20170804] | 함수추가 post contents dafault setting                 | eley
 */
 
 //20170515 eley
@@ -38,7 +44,6 @@ $GLOBALS['evententerlist'] = new event_enterlist();
 //20170707 eley
 include 'inc/mypage.php';
 $GLOBALS['mypage'] = new mypage();
-add_action( 'wp_enqueue_scripts', 'enqueue_child_theme_styles', PHP_INT_MAX);
 
 //20170718 eley
 include 'inc/relations.php';
@@ -48,16 +53,80 @@ $GLOBALS['relationlist'] = new relation_list();
 include 'inc_admin/admin_control.php';
 $GLOBALS['admincontrol'] = new admin_control();
 
-//20170720 eley
-function custom_style_sheet() {
-	wp_enqueue_style( 'custom-styling', get_stylesheet_directory_uri() . '/custom.css' );
-}
-add_action('wp_enqueue_scripts', 'custom_style_sheet');
+//style 20170724 eley
+function enqueue_child_theme_styles() {
+	
+	/*parent*/
+	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+	
+	/*child*/
+	wp_enqueue_style( 'custom-styling', get_stylesheet_directory_uri() . '/assets/css/custom-style.css', array( 'parent-style' ) );
+	
+	/*yeonok: add kboard ui script*/
+	// create new skin & css & js 
+	//wp_enqueue_style( 'kboard-styling', get_stylesheet_directory_uri() . '/assets/css/kboard-selvi-style.css', array( 'parent-style' ) );
+	
+	/*yeonok: add other event list carousel script*/
+	wp_enqueue_style( 'flickity-styling', get_stylesheet_directory_uri() . '/assets/js/lib/flickity/flickity.css', array( 'parent-style' ) );
+	// yeonok: add flickity ie9 support
+	//wp_enqueue_style( 'flickity-v1-styling', get_stylesheet_directory_uri() . '/assets/js/lib/flickity/v1/flickity.css', array( 'parent-style' ) );
+	
+	}
+add_action( 'wp_enqueue_scripts', 'enqueue_child_theme_styles' );
 
-//style
+//js 20170728 eley
+function enqueue_child_theme_js() {
+	
+	/*yeonok: add selvi ui script*/
+	wp_enqueue_script('selvi-ui-js', get_stylesheet_directory_uri().'/assets/js/selvi-ui.js', array(),null,true);
+
+	/*yeonok: add rollet script*/
+	wp_enqueue_script('winwheel-js', get_stylesheet_directory_uri().'/assets/js/lib/Winwheel.min.js', array(),null,true);
+	
+	wp_enqueue_script('flickity-js', get_stylesheet_directory_uri().'/assets/js/lib/flickity/flickity.pkgd.min.js', array(),null,true);
+	// yeonok: add flickity ie9 support
+	//wp_enqueue_script('flickity-v1-js', get_stylesheet_directory_uri().'/assets/js/lib/flickity/v1/flickity.pkgd.min.js', array(),null,true);
+	
+}
+add_action('wp_enqueue_scripts', 'enqueue_child_theme_js');
+
+//post contents dafault setting 20170804 eley
+function default_post_content( $content ) {
+$content = '<!-- 미디어 시작 -->
+			<section class="event-visual">
+				영상 및 사진 영역
+			</section><!-- /.event-mv -->
+			<!-- 미디어 끝 -->
+
+			<!-- 텍스트 시작 -->
+			<section class="event-desc">
+				텍스트영역
+			</section><!-- /.event-desc -->
+			<!-- 텍스트 끝 -->
+			
+			<!-- 게시판 시작 -->
+				게시판 코드영역
+			<!-- 게시판 끝 -->';
+return $content;
+}
+ 
+add_filter( 'default_content', 'default_post_content' );
+
+
+
+/* style 20170724 함수 하나로 합침
+// 부모 style
 function enqueue_child_theme_styles() {
 	wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
 }
+add_action( 'wp_enqueue_scripts', 'enqueue_child_theme_styles', PHP_INT_MAX);
+
+// 커스텀 style 20170724 eley
+function custom_style_sheet() {
+	wp_enqueue_style( 'custom-styling', get_stylesheet_directory_uri() . '/assets/css/custom-style.css', array( 'parent-style' ));
+}
+add_action('wp_enqueue_scripts', 'custom_style_sheet');
+*/
 
 /** 보류
 //글 작성자 이메일전송기능 추가 20170518 eley
@@ -73,4 +142,20 @@ function my_kboard_comments_insert($comment_uid, $content_uid){
     }
 }
 */
+
+/**
+ * Add page classes to the array of body classes.
+ */
+function selvi_body_classes( $classes ) {
+
+	global $wp_query;
+	$post_id = $wp_query->post->ID;
+
+	if ($post_id == '1340') {
+   	$classes[] = 'bg-gray';
+	}
+
+	return $classes;
+}
+add_filter( 'body_class', 'selvi_body_classes' );
 ?>

@@ -5,6 +5,9 @@
 * ---------------------------------------------------
 * [after]
 * [20170704] | 이벤트 정보 가져오는 함수선언 및 데이터 뿌려줌    | eley 
+*
+* [RENEWAL]------------------------------------------
+* [20170807] | RENEWAL                          | eley 
 */
 class event_enterlist {
 	function __construct(){
@@ -70,193 +73,160 @@ class event_enterlist {
 			//return;
 		
 		?>
-		<div id="evententer-list">
-		<style type="text/css">
-		.tg-enterlist  {border-collapse:collapse;border-spacing:0;}
-		.tg-enterlist td{, sans-serif;font-size:14px;padding:7px 3px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-		.tg-enterlist th{, sans-serif;font-size:14px;font-weight:normal;padding:7px 3px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-		.tg-enterlist .tg-enterlist-hv75{font-align:center;background-color:#ffffff;color:#9b9b9b;text-align:center}
-		.tg-enterlist .tg-enterlist-ahts{background-color:#ffffff;color:#9b9b9b;text-align:center}
-		.tg-enterlist .tg-enterlist-frya{background-color:#ffffff;color:#9b9b9b}
-		.tg-enterlist .tg-enterlist-0ql5{background-color:#ffffff;color:#9b9b9b;text-align:center;}
-		.tg-enterlist .tg-enterlist-6z7r{font-weight:bold;font-size:14px;, Helvetica, sans-serif !important;;background-color:#c0c0c0;color:#9b9b9b;text-align:center;}
 		
-		.btn-enterlist {
-			height: 26px;
-			background: #2990ff;
-			background-image: -webkit-linear-gradient(top, #2990ff, #2990ff);
-			background-image: -moz-linear-gradient(top, #2990ff, #2990ff);
-			background-image: -ms-linear-gradient(top, #2990ff, #2990ff);
-			background-image: -o-linear-gradient(top, #2990ff, #2990ff);
-			background-image: linear-gradient(to bottom, #2990ff, #2990ff);
-			-webkit-border-radius: 0;
-			-moz-border-radius: 0;
-			border-radius: 0px;
-			font-weight:bold;
-			font-family: Arial;
-			color: #ffffff;
-			font-size: 12px;
-			padding: 3px 6px 3px 6px;
-			text-decoration: none;
-			border-width:thin; 
-			border-style:solid;
-		}
-		
-		.btn-enterlist:hover {
-			color: #ffffff;
-			background: #4ba1fc;
-			background-image: -webkit-linear-gradient(top, #4ba1fc, #4ba1fc);
-			background-image: -moz-linear-gradient(top, #4ba1fc, #4ba1fc);
-			background-image: -ms-linear-gradient(top, #4ba1fc, #4ba1fc);
-			background-image: -o-linear-gradient(top, #4ba1fc, #4ba1fc);
-			background-image: linear-gradient(to bottom, #4ba1fc, #4ba1fc);
-			text-decoration: none;
-		}
-		
-		.btn-enterlist:disabled {
-			color: #ffffff;
-			background: #656565;
-			background-image: -webkit-linear-gradient(top, #656565, #656565);
-			background-image: -moz-linear-gradient(top, #656565, #656565);
-			background-image: -ms-linear-gradient(top, #656565, #656565);
-			background-image: -o-linear-gradient(top, #656565, #656565);
-			background-image: linear-gradient(to bottom, #656565, #656565);
-			text-decoration: none;
-		}
-		
-		.kboard-pagination { float: left; padding: 3px 0; width: 100%; }
-		.kboard-pagination .kboard-pagination-pages { float: left; margin: 0; padding: 0; width: 100%; list-style: none; text-align: center; border: 0; }
-		.kboard-pagination .kboard-pagination-pages li { display: inline-block; *display: inline; zoom: 1; margin: 0; padding: 0 1px; background: none; border: 0; list-style: none; }
-		.kboard-pagination .kboard-pagination-pages li a { display: block; margin: 0; padding: 0 11px; height: 28px; line-height: 28px; font-size: 13px; color: #999999; text-decoration: none; border: 0; background-color: #f9f9f9; box-shadow: none; transition-duration: 0.3s; }
-		.kboard-pagination .kboard-pagination-pages li:hover a,
-		.kboard-pagination .kboard-pagination-pages li.active a { border: 0; color: white; background-color: #2990ff; }
-		.kboard-pagination .kboard-pagination-pages li:before { display: none; }
-		.kboard-pagination .kboard-pagination-pages li:after { display: none; }
-		.kboard_style{ display: inline; margin: 0; padding: 0; width: auto; height: 26px; line-height: 26px; font-size: 14px; color:#9b9b9b; border-radius: 0; border: 1px solid #9b9b9b; background: white; vertical-align: middle; box-shadow: none; box-sizing: content-box; text-indent: 0; text-align: center;}
-		.search_enterlist_div { float: left; padding: 3px 0; width: 100%; }
-		.sort_enterlist_div {div style="float:right; width:30%; height:500px; background:#f00;"}
-		</style>
-		
-		<table class="tg-enterlist" style="undefined;table-layout: fixed; width: 100%" frame="void">
-		<input type="hidden" value="<?php echo $s_enter_id?>" id="test_hidden" name="test_hidden"/>
-		
-		<colgroup>
-			<col style="width: 40px">
-			<col style="width: 100%">
-			<col style="width: 90px">
-			<col style="width: 45px">
-			<col style="width: 95px">
-		</colgroup>
-		
-		  <tr>
-			<th class="tg-enterlist-hv75" colspan="5">
-			<!-- 검색창 -->
-			<div class="search_enterlist_div">
-				<input type="text" class="kboard_style" id="search_enterlist" name="search_enterlist" value="<?php echo $keyword?>" placeholder="이벤트명 검색"/>
-				<input type="button" class="btn-enterlist" id="search_enterlist_btn" name="search_enterlist_btn" value="검색" style="width:50px; text-align:center; background-color:#2990ff; color: #ffffff;">
-			</div>
-			<!-- 정렬창 -->
-			<div class="sort_enterlist_div" style="float:right">
-				<select class="kboard_style" name="enterlist_sort" id="enterlist_sort" style="float:right;">
-					<option value="date"<?php if($sort == 'date'):?>selected<?php endif?>>날짜순</option>
-					<option value="status"<?php if($sort == 'status'):?>selected<?php endif?>>당첨순</option>
-				</select>
-			<div>
-			</th>
-		  </tr>
-		  <tr>
-			<td class="tg-enterlist-6z7r"><font style="color: #ffffff">번호</font></td>
-			<td class="tg-enterlist-6z7r"><font style="color: #ffffff">이벤트명</font></td>
-			<td class="tg-enterlist-6z7r"><font style="color: #ffffff">참여날짜</font></td>
-			<td class="tg-enterlist-6z7r"><font style="color: #ffffff">당첨여부</font></td>
-			<td class="tg-enterlist-6z7r"><font style="color: #ffffff">배송지 관리</font></td>
-		  </tr>
-			<?php foreach($enter_rows as $enter_row){ ?>
-				<?php
-				//변수초기화
-				$enter_id = '';
-				$event_id = '';
-				$enter_user_id = '';
-				$status = '';
-				$rgst_date = '';
-				$post_title = '';
-				
-				$status_text = '';
-				$enter_date = '';
-				
-				//foreach문 값있을때
-				if(isset($enter_row)){
-				//변수설정
-				$enter_id = isset($enter_row->enter_id) ? $enter_row->enter_id : '';
-				$event_id = isset($enter_row->event_id) ? $enter_row->event_id : '';
-				$enter_user_id  = isset($enter_row->user_id) ? $enter_row->user_id : '';
-				$status    = isset($enter_row->status) ? $enter_row->status : '';
-				$rgst_date = isset($enter_row->rgst_date) ? $enter_row->rgst_date : '';
-				$post_title = isset($enter_row->post_title) ? $enter_row->post_title : '';
-				
-				//$post_row = $this->get_post_row($event_id);
-						
-				//if(isset($post_row)){
-				//	$post_title = isset($post_row->post_title) ? $post_row->post_title : '';
-				//}
-				
-				//당첨/비당첨 세팅
-				if($status==1){
-					$status_text = '당첨';
-				}else if($status==0){
-					$status_text = '꽝';
-				}else{
-					$status_text = '';
-				}
-					
-				//참여날짜 세팅
-				$enter_date = date("Y-m-d", strtotime( $rgst_date ) );
-				?>
-				
-				 <tr>
-					<td class="tg-enterlist-0ql5"><?php echo $enter_row->ROWNUM?></td>
-					<td class="tg-enterlist-frya"><?php echo $post_title?></td>
-					<td class="tg-enterlist-ahts"><?php echo $enter_date?></td>
-					<td class="tg-enterlist-0ql5"><?php echo $status_text?></td>
-					<td class="tg-enterlist-0ql5"><input type="button" class="btn-enterlist" id="from_delivery_btn" name="from_delivery_btn" value="확인 및 수정"
-													style="width:100%; text-align:center; background-color:#2990ff; color: #ffffff;"
-						onclick= <?php if($s_enter_id!=$enter_row->enter_id){?>
-								"location.href= '<?php echo add_query_arg('enter_id', $enter_row->enter_id)?>#list'"
-								<?php }else{?>
-								"location.href='<?php echo add_query_arg('enter_id', '')?>#list'"
-								<?php } ?>
-						<?php if($enter_row->status==0):?>disabled = 'disabled';<?php endif?>></td>
-				 </tr>
-				 
-				 <!--배달정보-->
-				 <!--현재행 이벤트아이디와 받은 아이디값 같을때 AND 당첨일때-->
-				 <?php if($enter_row->enter_id == $s_enter_id && $enter_row->status == 1){?>
-				 <tr id="eventdelivery_row" name="eventdelivery_row">
-					<td class="tg-enterlist-hv75" colspan="5">
-						<?php echo do_shortcode('[eventdelivery]');?>
-					</td>
-				 </tr>
-				 <?php } ?>
-
-				<?php } ?>
-			<?php } ?>
+		<!-- View -->
+		<div class="board-tools">
+			<!-- Search -->
+			<div class="search-form">
+				<span class="search-label">이벤트 검색</span>
+				<p class="search-group">
+					<input type="text" class="input-text input-search" id="search_enterlist" name="search_enterlist" value="<?php echo $keyword?>" placeholder="이벤트명 검색"/>
+					<input type="button" class="btn-search" id="search_enterlist_btn" name="search_enterlist_btn" value="검색">
+				</p>
+			</div><!-- /.search-form -->
 			
-				<tr>
-					<th class="tg-enterlist-hv75" colspan="5">
-					<!-- 페이징 시작 -->
-					<div class="kboard-pagination">
-						<ul class="kboard-pagination-pages">
-							<?php 
-								$total_page = isset($enter_row->ENTER_COUNT) ? $enter_row->ENTER_COUNT : 1;
-								echo kboard_pagination($view_page, $total_page , $limit_page);
-							?>
-						</ul>
-					</div>
-					<!-- 페이징 끝 -->
-					</th>
-				</tr>
-		</table>
-		</div>
+			<!-- Sort -->
+			<div class="sort">
+				<div class="styled-select-outer">
+					<select class="kboard_style" name="enterlist_sort" id="enterlist_sort">
+						<option value="date" class="current" <?php if($sort == 'date'):?>selected<?php endif?>>날짜순</option>
+						<option value="status"<?php if($sort == 'status'):?>selected<?php endif?>>당첨순</option>
+					</select>
+				</div>
+			</div>
+			
+		</div><!-- /.board-tools -->
+
+		<!-- Enter List -->
+		<div class="kboard-selvi">
+			<!-- 리스트 시작 -->
+			<div class="kboard-list">
+				<table>
+				<input type="hidden" value="<?php echo $s_enter_id?>" id="s_enter_id" name="s_enter_id"/>
+					<thead>
+						<tr>
+							<td class="kboard-list-uid">No.</td>
+							<td class="kboard-list-title">이벤트명</td>
+							<td class="kboard-list-date">등록일</td>
+							<td class="kboard-list-status">당첨여부</td>
+							<td class="kboard-list-addr">배송지관리</td>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- foreach -->
+						<?php foreach($enter_rows as $enter_row){ ?>
+						
+						<!-- Setting -->
+						<?php
+						//변수초기화
+						$enter_id = '';
+						$event_id = '';
+						$enter_user_id = '';
+						$status = '';
+						$rgst_date = '';
+						$post_title = '';
+						
+						$status_text = '';
+						$enter_date = '';
+						
+						//foreach문 값있을때
+						if(isset($enter_row)){
+						//변수설정
+						$enter_id = isset($enter_row->enter_id) ? $enter_row->enter_id : '';
+						$event_id = isset($enter_row->event_id) ? $enter_row->event_id : '';
+						$enter_user_id  = isset($enter_row->user_id) ? $enter_row->user_id : '';
+						$status    = isset($enter_row->status) ? $enter_row->status : '';
+						$rgst_date = isset($enter_row->rgst_date) ? $enter_row->rgst_date : '';
+						$post_title = isset($enter_row->post_title) ? $enter_row->post_title : '';
+						
+						//$post_row = $this->get_post_row($event_id);
+								
+						//if(isset($post_row)){
+						//	$post_title = isset($post_row->post_title) ? $post_row->post_title : '';
+						//}
+						
+						//당첨/비당첨 세팅
+						if($status==1){
+							$status_text = '당첨';
+						}else if($status==0){
+							$status_text = '꽝';
+						}else{
+							$status_text = '';
+						}
+							
+						//참여날짜 세팅
+						$enter_date = date("Y-m-d", strtotime( $rgst_date ) );
+						?>
+						
+						<tr class="row-colspan">
+							<td class="kboard-list-uid"><?php echo $enter_row->ROWNUM?></td>
+							<td class="kboard-list-title">
+								<a href="<?php echo get_permalink( $enter_row->post_id ); ?>"><?php echo $post_title?></a>
+								
+								<!-- Mobile -->
+								<div class="kboard-mobile-contents">
+									<span class="contents-item"><?php echo $enter_date?></span>
+									<span class="contents-separator">|</span>
+									<span class="contents-item"><?php echo $status_text?></span>
+									<?php if ($status == 1) : ?>
+										<span class="contents-separator">|</span>
+										<span class="contents-item">
+											<button class="btn-board-toggle" 
+												onclick= <?php if($s_enter_id!=$enter_row->enter_id){ ?>
+														"location.href= '<?php echo add_query_arg('enter_id', $enter_row->enter_id)?>#list'"
+														<?php }else{ ?>
+														"location.href='<?php echo add_query_arg('enter_id', '') ?>#list'"
+														<?php } ?>
+														>확인 및 수정</button>
+										</span>
+									<?php endif ?>
+								</div>
+							</td>
+							
+							<!-- Web -->
+							<td class="kboard-list-date"><?php echo $enter_date?></td>
+							<td class="kboard-list-status"><?php echo $status_text?></td>
+							<td class="kboard-list-addr">
+								<button class="btn-board-toggle" 
+										onclick= <?php if($s_enter_id!=$enter_row->enter_id){?>
+												"location.href= '<?php echo add_query_arg('enter_id', $enter_row->enter_id)?>#list'"
+												<?php }else{?>
+												"location.href='<?php echo add_query_arg('enter_id', '')?>#list'"
+												<?php } ?>
+												<?php if($enter_row->status==0):?>disabled = 'disabled';<?php endif?>
+												>확인 및 수정</button>
+							</td>
+						</tr>
+						<!--Delivery-->
+						<!--현재행 이벤트아이디와 받은 아이디값 같을때 AND 당첨일때-->
+						<?php if($enter_row->enter_id == $s_enter_id && $enter_row->status == 1){?>
+						 <tr class="row-addr-load" id="eventdelivery_row" name="eventdelivery_row">
+							<td colspan="5">
+								<div class="addr-info-load">
+								<?php echo do_shortcode('[eventdelivery]');?>
+								</div>
+							</td>
+						 </tr>
+						<?php } ?>
+								
+						<?php } ?><!-- ./if -->
+					<?php } ?><!-- ./foreach -->
+					</tbody>
+				</table>
+			</div>
+			<!-- 리스트 끝 -->
+					
+			<!-- 페이징 시작 -->
+			<div class="kboard-pagination">
+				<ul class="kboard-pagination-pages">
+					<?php 
+						$total_page = isset($enter_row->ENTER_COUNT) ? $enter_row->ENTER_COUNT : 1;
+						echo kboard_pagination($view_page, $total_page , $limit_page);
+					?>
+				</ul>
+			</div>
+			<!-- 페이징 끝 -->
+		</div><!-- /.kboard-selvi -->
 		
 		<script>
 		//검색창에서 엔터키누를때
@@ -349,6 +319,7 @@ class event_enterlist {
 																 AND $this->table2.post_id = $this->table3.ID
 																 )AS ENTER_COUNT
 															, $this->table3.post_title
+															, $this->table3.ID as post_id
 													  FROM $this->table
 														   , $this->table2 
 														   , $this->table3

@@ -2,7 +2,7 @@
 /**
 * [init]     
 * [20170607] | 이벤트 정보등록 CRUD php파일 생성           | eley 
-* ---------------------------------------------------
+* ------------------------------------------------------
 * [after]
 * [20170609] | 시작시간,종료시간 테이블컬럼추가에 따른 로직 변경     | eley
 * [20170612] | 코드정리 및 CRUD 테스트 완료               | eley
@@ -13,7 +13,12 @@
 * [20170710] | 기존 비로그인 top으로이동 -> 로그인팝업         | eley
 * [20170712] | 이벤트타입 DB추가로 인한 로직추가              | eley
 * [20170714] | facebook응모시 페이스북 자동로그인           | eley
+*
+* [RENEWAL]----------------------------------------------------------
+* [20170724] | RENEWAL                            | eley 
+* [20170731] | POPUP RENEWAL                      | eley 
 */
+
 class event_info {
 	function __construct(){
 		//편의를 위해 wordpress 테이블이름을 변수로 만들어줌
@@ -101,6 +106,10 @@ class event_info {
 			
 			$event_all_prize = $row->event_all_prize;
 			$event_prize     = $row->event_prize;
+			
+			//콤마구분 초기화
+			$event_prize_comma     = $event_prize;
+			$event_all_prize_comma = $event_all_prize;
 
 			$event_start     = $row->event_start;
 			$event_end       = $row->event_end;
@@ -130,6 +139,13 @@ class event_info {
 			//남은경품이 0이거나 남은시간이 없을때 응모버튼비활성화
 			if( (strtotime($event_end_t) <= strtotime($curnt_t)) || $event_prize == "0" || $event_prize == ""){
 				$event_ck = true;
+			}
+			
+			//경품 자릿수체크 클래스변경
+			if( strlen($event_prize) > 3 || strlen($event_all_prize) > 3 ){
+				//3자리마다 콤마
+				$event_prize_comma     = number_format($event_prize);
+				$event_all_prize_comma = number_format($event_all_prize);
 			}
 		}
 		
@@ -225,57 +241,67 @@ class event_info {
 		<!-- 커스텀폼실행 -->
 		
 		<?php if($event_id != "") {?>
+		
 		<input type="hidden" id="event_prize" name="event_prize" class="numbersOnly" value="<?php echo $event_prize;?>"/>
 		<input type="hidden" id="event_enter" name="event_enter" class="numbersOnly" value="<?php echo $event_enter;?>" />
 		<input type="hidden" id="event_all_prize" name="event_all_prize" class="numbersOnly" value="<?php echo $event_all_prize;?>"/>
 		<input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id;?>"/>
 		<input type="hidden" id="status" name="status" value="<?php echo $status;?>"/>
-		<table width="100%" cellspacing="0%">
-			<tr>
-				<td>
-					<p style="text-align:center;"><font size="3"><b>남은경품</b></font></p>
-				</td>
-				<td>
-					<p style="text-align:center;"><font size="3"><b>전체경품</b></font></p>
-				</td>
-				<td>
-					<p style="text-align:center;"><font size="3"><b>남은시간</b></font></p>
-				</td>
-				<td>
-					<p style="text-align:center;"><font size="3"><b>응모인원</b></font></p>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<p style="text-align:center;"><font size="3"><b><?php echo $event_prize;?></b></font></p>
-				</td>
-				<td>
-					<p style="text-align:center;"><font size="3"><b><?php echo $event_all_prize;?></b></font></p>
-				</td>
-				<td>
-					<p style="text-align:center;"><font size="3"><b><text id="event_countdown"/></font></p>
-				</td>
-				<td>
-					<p style="text-align:center;"><font size="3"><b><?php echo $event_enter;?></b></font></p>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="5">
-					<?php if( $event_ck ){ ?>
-						<p style="text-align:center;"><b><input type="button" id="enter_button" value="이벤트종료" style="width:100%; text-align:center; background-color:darkgray;" disabled /></b></p>
-					<?php }else { ?>
-						<?php if( $enter ) { ?>
-							<p style="text-align:center;"><b><input type="button" id="enter_button" value="응모완료" style="width:100%; text-align:center; background-color:darkgray;" disabled /></b></p>
-						<?php } else {?>
-							<p style="text-align:center;"><b><input type="button" id="enter_button" value="FaceBook응모하기" style="width:100%; text-align:center;" /></b></p>
-						<?php }?>
-					<?php }?>
-				</td>
-			</tr>
-		</table>
-		<?php } ?>
+	
+	<!-- detail renewal start -------------------------------------------------------------------------->
+	
+		<!-- event info part -->
+		<section class="event-detail-header">
+			<div class="event-flag-group">
+				<p class="event-flag shipping">배송</p>
+				<p class="event-flag ing">진행</p>
+			</div><!-- /.event-flag-group -->
+			<div class="title">
+				<p class="cat">
+					<?php foreach((get_the_category()) as $category){
+							echo $category->name . ' ' ;
+					} ?>
+				</p>
+				<p class="tit"><?php echo get_the_title($post_id) ?></p>
+			</div>
+			<ul class="info-list">
+				<dl class="gift-remain">
+					<dt>남은경품</dt>
+					<dd><span class="value"><?php echo $event_prize_comma;?></span></dd>
+				</dl>
+				<dl class="gift-total">
+					<dt>전체경품</dt>
+					<dd><span class="value"><?php echo $event_all_prize_comma;?></span></dd>
+				</dl>
+				<dl class="apply">
+					<dt>응모인원</dt>
+					<dd><span class="value"><?php echo $event_enter;?></span></dd>
+				</dl>
+				<dl class="time">
+					<dt>남은시간</dt>
+					<dd><span class="value"><text id="event_countdown"></text></span></dd>
+				</dl>
+			</ul><!-- /.info-list -->
+		</section><!-- /.event-detail-header -->
 		
-		<?php } ?>
+		<!-- facebook enter part -->
+		<section class="event-apply">
+			<?php if( $event_ck ){ ?>
+				<input type="button" id="enter_button" value="이벤트종료" class="btn-apply-facebook" disabled />
+			<?php }else { ?>
+				<?php if( $enter ) { ?>
+					<input type="button" id="enter_button" value="응모완료" class="btn-apply-facebook" disabled />
+				<?php } else {?>
+					<input type="button" id="enter_button" value="FaceBook응모하기" class="btn-apply-facebook" />
+				<?php }?>
+			<?php }?>
+		</section>
+		
+		<!-- detail renewal end -------------------------------------------------------------------------->
+							
+		<?php } ?><!--end if 커스텀 ck -->
+		
+		<?php } ?><!--end else 커스텀 -->
 		</form>
 		
 		<script>
@@ -480,7 +506,6 @@ class event_info {
 					var event_end   = "<?php echo $event_end;?>";
 					var event_enter = "<?php echo $event_enter;?>";
 					var status = "<?php echo $status; ?>";
-					var popck = false;
 					
 					//응답시 공유체크
 					if (response && !response.error_code) {
@@ -513,7 +538,6 @@ class event_info {
 						
 						//남은시간 분으로 환산한 값
 						var remain_min = showRemaining();
-						//alert((event_prize/remain_min)*100);
 						
 						if(Math.random()<((event_prize/remain_min)*100)){
 							//당첨시
@@ -525,68 +549,30 @@ class event_info {
 							
 							status = 1;
 							document.getElementById("status").value = status;
-							//alert("당첨!\n오늘의 행운은 당신에게!");
-							popck = true;
-							PUM.open(1121); //당첨 팝업호출
+							
+							// POPUP RENEWAL -------------------------------------------------------------------------------------->
+							
+							/* SUBMIT */
+							jQuery("#eventinfo-form").submit();
+							
+							/* ENTER TRUE */
+							openApplyRoulette(2);
+							
 						}else{
 							//미당첨시
 							//status = 0
 							status = 0;
 							document.getElementById("status").value = status;
-							//alert("미당첨ㅠㅠ\n다음기회에...");
-							PUM.open(1126); //당첨 팝업호출
-							popck = false;
-							//$("#eventinfo-form").submit(); //reload
+							
+							// POPUP RENEWAL -------------------------------------------------------------------------------------->
+							
+							/* SUBMIT */
+							jQuery("#eventinfo-form").submit();
+							
+							/* ENTER FALSE*/
+							openApplyRoulette(1);
 						}
 						
-						//ajax로 데이터 form submit하기
-						$("#eventinfo-form").submit(function(e) {
-							var formObj = $(this);
-							var formURL = formObj.attr("action");
-							var formData = new FormData(this);
-							$.ajax({
-								url: formURL,
-								type: 'POST',
-								data:  formData,
-								mimeType:"multipart/form-data",
-								contentType: false,
-								cache: false,
-								processData:false,
-								success: function(data, textStatus, jqXHR)
-								{
-								 //form data저장 성공일때
-								},
-								 error: function(jqXHR, textStatus, errorThrown)
-								{
-									alert("[ERROR_AJ01_E] 관리자에게 문의해주십시오.");
-								}         
-							});
-							e.preventDefault(); //Prevent Default action.
-							//e.unbind();
-						});
-						
-						//팝업설정
-						if(popck == true){//당첨
-							$("#eventinfo-form").submit(); //DB저장
-
-							jQuery('#pum-1121').one('pumAfterClose', function () {
-								
-								//PUM.open(1103); //정보입력팝업호출 
-								//20170629 eley 정보입력 페이지로 이동
-								location.href='delivery?event_id=<?php echo $event_id;?>';
-							});
-							//팝업 닫기버튼을 눌렀을때 relode
-							//jQuery('#pum-1103').one('pumAfterClose', function () { 
-							//	alert("배송정보를 입력하지 않으면 배송문제로 당첨이 취소될수 있습니다.\n마이페이지에서 정보를 다시 등록할수 있습니다.");
-							//	location.reload(); 
-							//});
-							//PUM.open(1103); //팝업호출
-						}else{//미당첨
-							$("#eventinfo-form").submit(); //DB저장
-							jQuery('#pum-1126').one('pumAfterClose', function () { 
-								location.reload(); 
-							});
-						}
 					//공유하지 않았을때
 					} else {
 						alert('이벤트 응모가 취소되었습니다.');
@@ -597,9 +583,19 @@ class event_info {
 			}
 			
 			//응모버튼 클릭시
-			jQuery("#enter_button").click(function () {
-				var user_id  = <?php echo $user_id?>;
+			jQuery("#enter_button").click(function (e) {
+				//Broswer Check
+				var agent = navigator.userAgent.toLowerCase();
+
+				//Samsung Browser
+				if (agent.indexOf("samsungbrowser") != -1) {
+					alert("지원되지 않는 브라우저 입니다. \n크롬에서 접속해주세요.");
+					return;
+				}
+
 				
+				var user_id  = <?php echo $user_id?>;
+				  
 					if(!user_id){
 						/*
 						//유저가 아닐때 로그인으로 이동
@@ -628,17 +624,16 @@ class event_info {
 						//}
 						*/
 						//페이스북 자동로그인 20170714
-						location.href = 'http://selvitest.cafe24.com/?action=cosmosfarm_members_social_login&channel=facebook&redirect_to=<?php echo get_permalink()?>';
+						//location.href = 'http://selvitest.cafe24.com/?action=cosmosfarm_members_social_login&channel=facebook&redirect_to=<?php echo get_permalink()?>';
+						
+						/*로그인 페이지로 이동*/
+						location.href = "http://selvitest.cafe24.com/login/";
 
 					//유저일때
 					} else {
 						var event_id = document.getElementById("event_id").value;//<?php echo $event_id?>;
 						//이벤트 아이디가 존재할때
 						if(event_id !=""){
-							
-							//KoreaSNS플러그인 함수 활용하여 SNS공유함수 부르기 
-							//함수사용 : SendSNS('".$snsKey."', '".$title." - ".$siteTitle."', '".$link."', '');
-							//$("#enter_button").click(SendSNS('facebook', '<?php echo $title?> - <?php echo $siteTitle?>', '<?php echo $link?>', ''))
 							
 							//로그인 유저가 페이스북유저인지 확인
 							var user_url_ck = "<?php echo $user_url_ck ?>";
@@ -648,17 +643,10 @@ class event_info {
 								
 								//페이스북유저일때
 								if(facebook_ck=="facebook"){
-									//경고메세지
-									//PUM.open(1130); //경고팝업호출 
-									//jQuery('#pum-1130').one('pumAfterClose', function () { 
-									//	fb_share_pop();
-									//});
 									
-									//confirm창으로 변경 20170707
-									var warpop = confirm("게시글 나만보기 또는\n공유확인이 불가능 할 시에는\n당첨이 취소될수 있습니다.\n공유 중 취소 및 재응모 불가능 합니다.\n계속하시려면 확인버튼을 눌러주세요 :)" );
-									if(warpop == true){
-										fb_share_pop();
-									}
+									/* NOTICE MESSAGE POPUP*/
+									e.stopPropagation();
+									openApplyConfirm();
 									
 								//페이스북 유저 아닐때
 								}else{
@@ -668,6 +656,48 @@ class event_info {
 						}
 					}
 			});
+		
+
+		// POPUP RENEWAL -------------------------------------------------------------------------------------->
+		
+		<!-- ENTER POPUP LOGIC START -------------------------------------------------------------------------->
+		<!-- AJAX SUBMIT -->
+		jQuery("#eventinfo-form").submit(function(e) {
+			var formObj = $(this);
+			var formURL = formObj.attr("action");
+			var formData = new FormData(this);
+			jQuery.ajax({
+				url: formURL,
+				type: 'POST',
+				data:  formData,
+				mimeType:"multipart/form-data",
+				contentType: false,
+				cache: false,
+				processData:false,
+				success: function(data, textStatus, jqXHR)
+				{
+					//form data저장 성공일때
+				},
+				 error: function(jqXHR, textStatus, errorThrown)
+				{
+					//form data저장 실패일때
+				}         
+			});
+			e.preventDefault(); //Prevent Default action.
+			//e.unbind();
+		});
+		
+		<!-- ENTER WIN -->
+		function enter_win(){
+			location.href='delivery?event_id=<?php echo $event_id;?>';
+		}
+		
+		<!-- ENTER LOSE -->
+		function enter_lose(){
+			window.location.href="http://selvitest.cafe24.com/"; 
+		}
+		<!-- ENTER POPUP LOGIC END --------------------------------------------------------------------------->
+		
 		</script>
 
 		<?php
@@ -676,7 +706,7 @@ class event_info {
 	//실질 데이터 요청 함수
 	//admin-post.php->action->eventinfo-post->post_request
 	function post_request(){
-		global $wpdb;
+		global $current_user, $wpdb;
 
 	if( ! isset($_REQUEST['eventinfo_nonce'])
 			|| ! wp_verify_nonce($_REQUEST['eventinfo_nonce'], 'eventinfo') )//nonce유효한지
@@ -703,15 +733,17 @@ class event_info {
 		
 		//업데이트 체크
 		$update = false;
-		if( $row = $this->get_row($post_id) )
-		//업데이트일경우
-		$update = true;
+		if( $row = $this->get_row($post_id) ){
+			//업데이트일경우
+			$update = true;
+		}
 		
 		//응모체크
 		$enter = false;
-		if( $enter_row = $this->get_enter_row($user_id, $event_id) )
-		//응모 중복인경우
-		$enter = true;
+		if( $enter_row = $this->get_enter_row($user_id, $event_id) ){
+			//응모 중복인경우
+			$enter = true;
+		}
 		
 		$data['event_all_prize']   = $event_all_prize;
 		$data['event_prize'] = $event_prize;
@@ -726,8 +758,8 @@ class event_info {
 		if( $update==true && $enter==true){
 			$wpdb->update($this->table, $data, compact('event_id'));
 		
-		//이벤트정보업데이트 and 새로운응모 -> 이벤트정보업데이트 and 응모정보등록
-		}else if( $update==true && $enter==false ) {
+		//이벤트정보업데이트 and 새로운응모 -> 이벤트정보업데이트 and 응모정보등록 - 사용자
+		}else if( $update==true && $enter==false && $current_user->user_status == 0 ){
 			$data2['enter_id']    = $enter_id;
 			$data2['event_id']    = $event_id;
 			$data2['user_id']     = $user_id;
@@ -738,6 +770,17 @@ class event_info {
 			$wpdb->update($this->table, $data, compact('event_id'));
 			$wpdb->insert($this->table2, $data2);
 
+		//이벤트정보업데이트 and 새로운응모 -> 이벤트정보업데이트 and 응모정보등록 - 관리자
+		}else if( $update==true && $enter==false && $current_user->user_status == 1 ){
+			$data2['enter_id']    = $enter_id;
+			$data2['event_id']    = $event_id;
+			$data2['user_id']     = $user_id;
+			$data2['status']      = $status;
+			$data2['rgst_date']   = current_time('mysql');
+			$data2['updt_date']   = current_time('mysql');
+
+			$wpdb->update($this->table, $data, compact('event_id'));
+			
 		//어느경우도 아닌경우 -> 이벤트정보 등록
 		}else{
 			$data['event_id']    = $event_id;
