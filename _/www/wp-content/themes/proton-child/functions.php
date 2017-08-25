@@ -148,7 +148,11 @@ function selvi_body_classes( $classes ) {
 	$post_id = $wp_query->post->ID;
 
 	if ($post_id == '1340') {
-   	$classes[] = 'bg-gray';
+		$classes[] = 'bg-gray';
+	}
+	
+	if(strpos($classes, 'single-format-standard')!== false){
+		$classes[] = 'page-event-detail';
 	}
 
 	return $classes;

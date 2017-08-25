@@ -223,6 +223,14 @@ class relation_list {
 									echo '<img src="' . get_template_directory_uri() . '/assets/images/default.png" />';
 								} 
 								
+							//+ 응모확인 딱지 추가
+							//<!-- yeonok: add status flag 20170824 -->
+							echo 
+								'<span class="text-flag">
+									<i class="icon facebook xs"></i>
+									<span class="tit">응모가능</span>
+								</span>';
+							
 							//스크립트 변수설정을 위한 변수++
 							$i++;
 							?>
