@@ -144,15 +144,16 @@ function my_kboard_comments_insert($comment_uid, $content_uid){
  */
 function selvi_body_classes( $classes ) {
 
-	global $wp_query;
-	$post_id = $wp_query->post->ID;
+	global $post;
+	$post_id = $post->ID;
+	$post_type = $post->post_type;
 
 	if ($post_id == '1340') {
 		$classes[] = 'bg-gray';
 	}
-	
-	if(strpos($classes, 'single-format-standard')!== false){
-		$classes[] = 'page-event-detail';
+
+	if($post_type == "post") {
+		$classes[] = "page-event-detail";
 	}
 
 	return $classes;
