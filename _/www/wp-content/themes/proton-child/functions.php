@@ -21,10 +21,6 @@
 * [20170804] | 함수추가 post contents dafault setting                 | eley
 */
 
-//20170515 eley
-include 'inc/mystatus.php';
-$GLOBALS['mystatus'] = new MY_Status();
-
 //20170607 eley
 include 'inc/eventinfo.php';
 $GLOBALS['eventinfo'] = new event_info();
