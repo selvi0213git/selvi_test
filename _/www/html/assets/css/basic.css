@@ -226,7 +226,7 @@ input[type=radio] {
   box-sizing: border-box;
 }
 .check-form input[type=checkbox]:checked + label:before {
-  background: #fff url(../images/checkmark.svg) center center no-repeat;
+  background: #fff url(../images/form-check.png) center center no-repeat;
   background-size: contain;
 }
 
@@ -289,7 +289,7 @@ button, input[type=button], input[type=submit], a[role=button] {
   cursor: pointer;
 }
 
-button.btn-univ, input.btn-univ {
+button.btn-univ, input.btn-univ, a.btn-univ {
   display: inline-block;
   padding: 15px 15px 16px 15px;
   min-width: 6.72727em;
@@ -299,13 +299,13 @@ button.btn-univ, input.btn-univ {
   font-weight: 500;
   font-size: 1.375em;
 }
-button.btn-univ:disabled, input.btn-univ:disabled {
+button.btn-univ:disabled, input.btn-univ:disabled, a.btn-univ:disabled {
   background-color: #bcc1c7;
 }
-button.btn-univ.gray, input.btn-univ.gray {
+button.btn-univ.gray, input.btn-univ.gray, a.btn-univ.gray {
   background-color: #bcc1c7;
 }
-button.btn-univ-small, input.btn-univ-small {
+button.btn-univ-small, input.btn-univ-small, a.btn-univ-small {
   padding-top: 0.72222em;
   padding-bottom: 0.72222em;
   min-width: 8.22222em;
@@ -330,7 +330,7 @@ button.btn-univ-small, input.btn-univ-small {
   border-left: 0;
 }
 
-button.btn-apply-facebook, input[type="button"].btn-apply-facebook, input[type="submit"].btn-apply-facebook, a.btn-apply-facebook, button.btn-login-facebook, input[type="button"].btn-login-facebook, input[type="submit"].btn-login-facebook, a.btn-login-facebook {
+button.btn-apply-facebook, button.btn-selvi, input[type="button"].btn-apply-facebook, input[type="button"].btn-selvi, input[type="submit"].btn-apply-facebook, input[type="submit"].btn-selvi, a.btn-apply-facebook, a.btn-selvi, button.btn-login-facebook, input[type="button"].btn-login-facebook, input[type="submit"].btn-login-facebook, a.btn-login-facebook {
   display: inline-block;
   width: 100%;
   color: #fff;
@@ -338,19 +338,29 @@ button.btn-apply-facebook, input[type="button"].btn-apply-facebook, input[type="
   font-weight: 900;
   line-height: 1;
 }
-button.btn-apply-facebook:hover, input[type="button"].btn-apply-facebook:hover, input[type="submit"].btn-apply-facebook:hover, a.btn-apply-facebook:hover, button.btn-login-facebook:hover, input[type="button"].btn-login-facebook:hover, input[type="submit"].btn-login-facebook:hover, a.btn-login-facebook:hover {
+button.btn-apply-facebook:hover, button.btn-selvi:hover, input[type="button"].btn-apply-facebook:hover, input[type="button"].btn-selvi:hover, input[type="submit"].btn-apply-facebook:hover, input[type="submit"].btn-selvi:hover, a.btn-apply-facebook:hover, a.btn-selvi:hover, button.btn-login-facebook:hover, input[type="button"].btn-login-facebook:hover, input[type="submit"].btn-login-facebook:hover, a.btn-login-facebook:hover {
   color: #fff;
 }
 
-button.btn-apply-facebook, input[type="button"].btn-apply-facebook, input[type="submit"].btn-apply-facebook, a.btn-apply-facebook {
+button.btn-apply-facebook, button.btn-selvi, input[type="button"].btn-apply-facebook, input[type="button"].btn-selvi, input[type="submit"].btn-apply-facebook, input[type="submit"].btn-selvi, a.btn-apply-facebook, a.btn-selvi {
   padding: 15px 0;
   max-width: 294px;
   background-color: #4c73c4;
   border-radius: 2px;
   font-size: 21px;
   line-height: 1.3;
+  text-align: center;
 }
-button.btn-apply-facebook:disabled, input[type="button"].btn-apply-facebook:disabled, input[type="submit"].btn-apply-facebook:disabled, a.btn-apply-facebook:disabled {
+button.btn-apply-facebook:disabled, button.btn-selvi:disabled, input[type="button"].btn-apply-facebook:disabled, input[type="button"].btn-selvi:disabled, input[type="submit"].btn-apply-facebook:disabled, input[type="submit"].btn-selvi:disabled, a.btn-apply-facebook:disabled, a.btn-selvi:disabled {
+  background-color: #bcc1c7;
+}
+button.btn-apply-facebook.blue, button.btn-selvi.blue, input[type="button"].btn-apply-facebook.blue, input[type="button"].btn-selvi.blue, input[type="submit"].btn-apply-facebook.blue, input[type="submit"].btn-selvi.blue, a.btn-apply-facebook.blue, a.btn-selvi.blue {
+  background-color: #4c73c4;
+}
+button.btn-apply-facebook.orange, button.btn-selvi.orange, input[type="button"].btn-apply-facebook.orange, input[type="button"].btn-selvi.orange, input[type="submit"].btn-apply-facebook.orange, input[type="submit"].btn-selvi.orange, a.btn-apply-facebook.orange, a.btn-selvi.orange {
+  background-color: #ff7521;
+}
+button.btn-apply-facebook.gray, button.btn-selvi.gray, input[type="button"].btn-apply-facebook.gray, input[type="button"].btn-selvi.gray, input[type="submit"].btn-apply-facebook.gray, input[type="submit"].btn-selvi.gray, a.btn-apply-facebook.gray, a.btn-selvi.gray {
   background-color: #bcc1c7;
 }
 button.btn-login-facebook, input[type="button"].btn-login-facebook, input[type="submit"].btn-login-facebook, a.btn-login-facebook {
