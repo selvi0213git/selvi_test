@@ -435,18 +435,20 @@
 								
 								//+ 응모확인 딱지 추가
 								//<!-- yeonok: add status flag 20170824 -->
-								if( $result_enter == true ){ //응모가능
-									echo 
-										'<span class="text-flag">
-											<i class="icon facebook xs"></i>
-											<span class="tit">응모가능</span>
-										</span>';
-								}else if( $result_enter == false ){ //응모불가능
-									echo 
-										'<span class="text-flag disabled">
-											<i class="icon facebook xs"></i>
-											<span class="tit">응모완료</span>
-										</span>';
+								if( $row->event_id != '' && $event_ck == true){ //+이벤트등록 안되있거나 or 종료된이벤트 아닐때
+									if( $result_enter == true){ //응모가능
+										echo 
+											'<span class="text-flag">
+												<i class="icon facebook xs"></i>
+												<span class="tit">응모가능</span>
+											</span>';
+									}else if( $result_enter == false){ //응모불가능
+										echo 
+											'<span class="text-flag disabled">
+												<i class="icon facebook xs"></i>
+												<span class="tit">응모완료</span>
+											</span>';
+									}
 								}
 								
 								//스크립트 변수설정을 위한 변수++
